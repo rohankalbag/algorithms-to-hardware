@@ -1,0 +1,95 @@
+// req and ack are two signals.
+$pipe req ack : $uint<1> $signal
+
+// incoming pipe to the first stage.
+// this is a non-blocking pipe.
+$noblock $pipe A: $uint<32> $depth 2
+
+// the output pipe.
+$pipe C : $uint<32> $depth 2
+
+// temporary storage variable to
+// keep intermediate value.
+$storage TMP: $uint<32> 
+
+// daemon
+//    reads from pipe A, if value is non-zero,
+//    uses a req ack handshake to transfer value
+//    to second stage.
+//
+$module [shift_reg_stage_1] $in () $out () $is
+{
+	$branchblock[loop] {
+		$merge $entry loopback $endmerge
+
+			X := A
+
+			$if (X != 0) $then
+				req := 1
+				TMP := X
+			$else
+				$place [loopback]
+			$endif 
+
+			// wait until ack becomes
+			// 1
+			$merge $entry ack_assert_loopback  $endmerge
+			$if (ack != 1) $then
+				$place [ack_assert_loopback] 
+			$endif
+
+
+			// lower req
+			req := 0
+
+			// wait until ack becomes 0
+			$merge $entry ack_deassert_loopback  $endmerge
+			$if (ack != 0) $then
+				$place [ack_deassert_loopback] 
+			$endif
+
+		$place [loopback]
+	}  
+}
+
+// daemon
+//    uses a req ack protocol to get intermediate value
+//    from first stage, and forwards this value to the
+//    output pipe.
+$module [shift_reg_stage_2] $in () $out () $is
+{
+	// initially ack is 0
+	ack := 0
+
+	$branchblock[loop] {
+
+		$merge $entry loopback $endmerge
+
+
+
+		// wait until req becomes 1
+		$merge $entry req_assert_loopback $endmerge
+		$if (req != 1) $then
+			$place [req_assert_loopback]
+		$endif
+
+		//
+		// TMP sampled and ack indicated.
+		//
+		ack := 1
+		C := TMP
+
+		// wait until req becomes 0
+		$merge $entry req_deassert_loopback $endmerge
+		$if (req != 0) $then
+			$place [req_deassert_loopback]
+		$endif
+
+		// clear ack to start again.
+		ack := 0
+		
+
+		$place [loopback]
+	}  
+}
+

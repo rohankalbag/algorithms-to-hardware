@@ -1,0 +1,23 @@
+$module [gcd] $in (a_in b_in: $uint<8>) $out (y_out: $uint<8>) $is
+{
+	$branchblock[loop] {
+		$merge $entry loopback
+			$phi a := a_in $on $entry next_a $on loopback
+			$phi b := b_in $on $entry next_b $on loopback
+		$endmerge
+		
+		$volatile continue_flag := (a != b)
+		$volatile diff := (a - b)
+		$volatile cmp_flag := (a > (2*b))
+
+		next_a := ($mux cmp_flag diff b)
+		next_b := ($mux cmp_flag b    diff)
+
+
+		$if continue_flag $then
+			$place [loopback]
+		$else
+			y_out := a
+		$endif
+	}
+}
