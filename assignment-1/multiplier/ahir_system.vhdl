@@ -21,8 +21,8 @@ use work.ahir_system_global_package.all;
 entity shift_and_add_mul is -- 
   generic (tag_length : integer); 
   port ( -- 
-    a_in : in  std_logic_vector(7 downto 0);
-    b_in : in  std_logic_vector(7 downto 0);
+    a : in  std_logic_vector(7 downto 0);
+    b : in  std_logic_vector(7 downto 0);
     product : out  std_logic_vector(15 downto 0);
     tag_in: in std_logic_vector(tag_length-1 downto 0);
     tag_out: out std_logic_vector(tag_length-1 downto 0) ;
@@ -56,10 +56,10 @@ architecture shift_and_add_mul_arch of shift_and_add_mul is --
   signal start_req_sig, fin_req_sig, start_ack_sig, fin_ack_sig: std_logic; 
   signal input_sample_reenable_symbol: Boolean;
   -- input port buffer signals
-  signal a_in_buffer :  std_logic_vector(7 downto 0);
-  signal a_in_update_enable: Boolean;
-  signal b_in_buffer :  std_logic_vector(7 downto 0);
-  signal b_in_update_enable: Boolean;
+  signal a_buffer :  std_logic_vector(7 downto 0);
+  signal a_update_enable: Boolean;
+  signal b_buffer :  std_logic_vector(7 downto 0);
+  signal b_update_enable: Boolean;
   -- output port buffer signals
   signal product_buffer :  std_logic_vector(15 downto 0);
   signal product_update_enable: Boolean;
@@ -141,10 +141,10 @@ begin --
       unload_ack => in_buffer_unload_ack_symbol, 
       read_data => in_buffer_data_out,
       clk => clk, reset => reset); -- 
-  in_buffer_data_in(7 downto 0) <= a_in;
-  a_in_buffer <= in_buffer_data_out(7 downto 0);
-  in_buffer_data_in(15 downto 8) <= b_in;
-  b_in_buffer <= in_buffer_data_out(15 downto 8);
+  in_buffer_data_in(7 downto 0) <= a;
+  a_buffer <= in_buffer_data_out(7 downto 0);
+  in_buffer_data_in(15 downto 8) <= b;
+  b_buffer <= in_buffer_data_out(15 downto 8);
   in_buffer_data_in(tag_length + 15 downto 16) <= tag_in;
   tag_ub_out <= in_buffer_data_out(tag_length + 15 downto 16);
   in_buffer_write_req <= start_req;
@@ -1096,11 +1096,11 @@ begin --
   data_path: Block -- 
     signal AND_u16_u16_41_wire : std_logic_vector(15 downto 0);
     signal SHL_u16_u16_49_wire : std_logic_vector(15 downto 0);
-    signal a_11 : std_logic_vector(15 downto 0);
     signal add_shifted_44 : std_logic_vector(0 downto 0);
-    signal b_16 : std_logic_vector(15 downto 0);
     signal continue_flag_37 : std_logic_vector(0 downto 0);
     signal count_26 : std_logic_vector(15 downto 0);
+    signal curr_a_11 : std_logic_vector(15 downto 0);
+    signal curr_b_16 : std_logic_vector(15 downto 0);
     signal konst_34_wire_constant : std_logic_vector(15 downto 0);
     signal konst_40_wire_constant : std_logic_vector(15 downto 0);
     signal konst_42_wire_constant : std_logic_vector(15 downto 0);
@@ -1146,7 +1146,7 @@ begin --
           req => req, 
           ack => phi_stmt_11_ack_0,
           idata => idata,
-          odata => a_11,
+          odata => curr_a_11,
           clk => clk,
           reset => reset ); -- 
       -- 
@@ -1168,7 +1168,7 @@ begin --
           req => req, 
           ack => phi_stmt_16_ack_0,
           idata => idata,
-          odata => b_16,
+          odata => curr_b_16,
           clk => clk,
           reset => reset ); -- 
       -- 
@@ -1249,7 +1249,7 @@ begin --
       )port map ( -- 
         write_req => wreq(0), 
         write_ack => wack(0), 
-        write_data => a_11,
+        write_data => curr_a_11,
         read_req => rreq(0),  
         read_ack => rack(0), 
         read_data => next_a_65,
@@ -1417,7 +1417,7 @@ begin --
       )port map ( -- 
         write_req => wreq(0), 
         write_ack => wack(0), 
-        write_data => a_in_buffer,
+        write_data => a_buffer,
         read_req => rreq(0),  
         read_ack => rack(0), 
         read_data => type_cast_14_wire,
@@ -1445,7 +1445,7 @@ begin --
       )port map ( -- 
         write_req => wreq(0), 
         write_ack => wack(0), 
-        write_data => b_in_buffer,
+        write_data => b_buffer,
         read_req => rreq(0),  
         read_ack => rack(0), 
         read_data => type_cast_20_wire,
@@ -1544,10 +1544,10 @@ begin --
       -- 
     end Block; -- split operator group 1
     -- binary operator AND_u16_u16_41_inst
-    process(b_16) -- 
+    process(curr_b_16) -- 
       variable tmp_var : std_logic_vector(15 downto 0); -- 
     begin -- 
-      ApIntAnd_proc(b_16, konst_40_wire_constant, tmp_var);
+      ApIntAnd_proc(curr_b_16, konst_40_wire_constant, tmp_var);
       AND_u16_u16_41_wire <= tmp_var; --
     end process;
     -- shared split operator group (3) : LSHR_u16_u16_69_inst 
@@ -1563,7 +1563,7 @@ begin --
       constant guardBuffering: IntegerArray(0 downto 0)  := (0 => 2);
       -- 
     begin -- 
-      data_in <= b_16;
+      data_in <= curr_b_16;
       next_b_70 <= data_out(15 downto 0);
       guard_vector(0)  <=  '1';
       reqL_unguarded(0) <= LSHR_u16_u16_69_inst_req_0;
@@ -1618,10 +1618,10 @@ begin --
       -- 
     end Block; -- split operator group 3
     -- binary operator NEQ_u16_u1_35_inst
-    process(b_16) -- 
+    process(curr_b_16) -- 
       variable tmp_var : std_logic_vector(0 downto 0); -- 
     begin -- 
-      ApIntNe_proc(b_16, konst_34_wire_constant, tmp_var);
+      ApIntNe_proc(curr_b_16, konst_34_wire_constant, tmp_var);
       continue_flag_37 <= tmp_var; --
     end process;
     -- binary operator NEQ_u16_u1_43_inst
@@ -1632,10 +1632,10 @@ begin --
       add_shifted_44 <= tmp_var; --
     end process;
     -- binary operator SHL_u16_u16_49_inst
-    process(a_11, count_26) -- 
+    process(curr_a_11, count_26) -- 
       variable tmp_var : std_logic_vector(15 downto 0); -- 
     begin -- 
-      ApIntSHL_proc(a_11, count_26, tmp_var);
+      ApIntSHL_proc(curr_a_11, count_26, tmp_var);
       SHL_u16_u16_49_wire <= tmp_var; --
     end process;
     -- 
@@ -1663,8 +1663,8 @@ library work;
 use work.ahir_system_global_package.all;
 entity ahir_system is  -- system 
   port (-- 
-    shift_and_add_mul_a_in : in  std_logic_vector(7 downto 0);
-    shift_and_add_mul_b_in : in  std_logic_vector(7 downto 0);
+    shift_and_add_mul_a : in  std_logic_vector(7 downto 0);
+    shift_and_add_mul_b : in  std_logic_vector(7 downto 0);
     shift_and_add_mul_product : out  std_logic_vector(15 downto 0);
     shift_and_add_mul_tag_in: in std_logic_vector(1 downto 0);
     shift_and_add_mul_tag_out: out std_logic_vector(1 downto 0);
@@ -1681,8 +1681,8 @@ architecture ahir_system_arch  of ahir_system is -- system-architecture
   component shift_and_add_mul is -- 
     generic (tag_length : integer); 
     port ( -- 
-      a_in : in  std_logic_vector(7 downto 0);
-      b_in : in  std_logic_vector(7 downto 0);
+      a : in  std_logic_vector(7 downto 0);
+      b : in  std_logic_vector(7 downto 0);
       product : out  std_logic_vector(15 downto 0);
       tag_in: in std_logic_vector(tag_length-1 downto 0);
       tag_out: out std_logic_vector(tag_length-1 downto 0) ;
@@ -1702,8 +1702,8 @@ begin --
   shift_and_add_mul_instance:shift_and_add_mul-- 
     generic map(tag_length => 2)
     port map(-- 
-      a_in => shift_and_add_mul_a_in,
-      b_in => shift_and_add_mul_b_in,
+      a => shift_and_add_mul_a,
+      b => shift_and_add_mul_b,
       product => shift_and_add_mul_product,
       start_req => shift_and_add_mul_start_req,
       start_ack => shift_and_add_mul_start_ack,

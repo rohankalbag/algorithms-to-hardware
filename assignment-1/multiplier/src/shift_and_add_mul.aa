@@ -1,21 +1,21 @@
-$module [shift_and_add_mul] $in (a_in b_in: $uint<8>) $out (product: $uint<16>) $is
+$module [shift_and_add_mul] $in (a b: $uint<8>) $out (product: $uint<16>) $is
 {
 	$branchblock[loop] {
 		$merge $entry loopback
-			$phi a := ($bitcast ($uint<16>) a_in) $on $entry next_a $on loopback
-			$phi b := ($bitcast ($uint<16>) b_in) $on $entry next_b $on loopback
+			$phi curr_a := ($bitcast ($uint<16>) a) $on $entry next_a $on loopback
+			$phi curr_b := ($bitcast ($uint<16>) b) $on $entry next_b $on loopback
 			$phi sum := ($bitcast ($uint<16>) 0) $on $entry next_sum $on loopback
 			$phi count := ($bitcast ($uint<16>) 0) $on $entry next_count $on loopback
 		$endmerge
 		
-		$volatile continue_flag := (b != 0)
-		$volatile add_shifted := ((b & 1) != 0)
-		$volatile shifted_sum := (sum + (a << count))
+		$volatile continue_flag := (curr_b != 0)
+		$volatile add_shifted := ((curr_b & 1) != 0)
+		$volatile shifted_sum := (sum + (curr_a << count))
 
 		next_count := (count + 1)
 		next_sum := ($mux add_shifted shifted_sum sum) 
-		next_a := a
-		next_b := (b >> 1)
+		next_a := curr_a
+		next_b := (curr_b >> 1)
 
 
 		$if continue_flag $then

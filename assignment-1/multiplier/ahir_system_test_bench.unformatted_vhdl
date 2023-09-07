@@ -26,8 +26,8 @@ entity ahir_system_Test_Bench is -- {
 architecture VhpiLink of ahir_system_Test_Bench is -- {
 component ahir_system is -- { 
 port (-- {
-shift_and_add_mul_a_in : in  std_logic_vector(7 downto 0);
-shift_and_add_mul_b_in : in  std_logic_vector(7 downto 0);
+shift_and_add_mul_a : in  std_logic_vector(7 downto 0);
+shift_and_add_mul_b : in  std_logic_vector(7 downto 0);
 shift_and_add_mul_product : out  std_logic_vector(15 downto 0);
 shift_and_add_mul_tag_in: in std_logic_vector(1 downto 0);
 shift_and_add_mul_tag_out: out std_logic_vector(1 downto 0);
@@ -41,8 +41,8 @@ reset : in std_logic); -- }
  end component;
 signal clk: std_logic := '0';
 signal reset: std_logic := '1';
-signal shift_and_add_mul_a_in :  std_logic_vector(7 downto 0) := (others => '0');
-signal shift_and_add_mul_b_in :  std_logic_vector(7 downto 0) := (others => '0');
+signal shift_and_add_mul_a :  std_logic_vector(7 downto 0) := (others => '0');
+signal shift_and_add_mul_b :  std_logic_vector(7 downto 0) := (others => '0');
 signal shift_and_add_mul_product :   std_logic_vector(15 downto 0);
 signal shift_and_add_mul_tag_in: std_logic_vector(1 downto 0);
 signal shift_and_add_mul_tag_out: std_logic_vector(1 downto 0);
@@ -91,10 +91,10 @@ Vhpi_Get_Port_Value(obj_ref,val_string,1);
 shift_and_add_mul_start_req <= To_Std_Logic(val_string);
 obj_ref := Pack_String_To_Vhpi_String("shift_and_add_mul 0");
 Vhpi_Get_Port_Value(obj_ref,val_string, 8);
-shift_and_add_mul_a_in <= Unpack_String(val_string,8);
+shift_and_add_mul_a <= Unpack_String(val_string,8);
 obj_ref := Pack_String_To_Vhpi_String("shift_and_add_mul 1");
 Vhpi_Get_Port_Value(obj_ref,val_string, 8);
-shift_and_add_mul_b_in <= Unpack_String(val_string,8);
+shift_and_add_mul_b <= Unpack_String(val_string,8);
 wait for 0 ns;
 if shift_and_add_mul_start_req = '1' then -- {
 while true loop --{
@@ -124,8 +124,8 @@ end process;
 ahir_system_instance: ahir_system -- {
 port map ( -- {
 
-shift_and_add_mul_a_in => shift_and_add_mul_a_in,
-shift_and_add_mul_b_in => shift_and_add_mul_b_in,
+shift_and_add_mul_a => shift_and_add_mul_a,
+shift_and_add_mul_b => shift_and_add_mul_b,
 shift_and_add_mul_product => shift_and_add_mul_product,
 shift_and_add_mul_tag_in => shift_and_add_mul_tag_in,
 shift_and_add_mul_tag_out => shift_and_add_mul_tag_out,

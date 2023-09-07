@@ -5,4 +5,4 @@
 #include <Pipes.h>
 #include <SocketLib.h>
 void global_storage_initializer_();
-uint16_t shift_and_add_mul(uint8_t a_in,uint8_t b_in);
+uint16_t shift_and_add_mul(uint8_t a,uint8_t b);

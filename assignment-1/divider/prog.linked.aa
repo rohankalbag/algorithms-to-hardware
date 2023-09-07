@@ -1,0 +1,44 @@
+$module [global_storage_initializer_]
+$in ()
+$out ()
+$is
+{
+  $null
+}
+$module [shift_and_subtract_div]
+$in ( a : $uint<8>   b : $uint<8>  )
+$out ( quotient : $uint<8>  )
+$is
+{
+  $branchblock [loop]
+  {
+    $merge $entry loopback 
+    $phi curr_a := 			  a $on   $entry 			  next_a $on   loopback 
+    // type of target is $uint<8>
+    $phi curr_b := 			  b $on   $entry 			  next_b $on   loopback 
+    // type of target is $uint<8>
+    $phi curr_quotient := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_quotient $on   loopback 
+    // type of target is $uint<8>
+    $phi curr_remainder := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_remainder $on   loopback 
+    // type of target is $uint<8>
+    $phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+    // type of target is $uint<8>
+    $endmerge
+    $volatile continue_flag := (count < 8 ) $buffering 1
+    $volatile next_bit_from_dividend := ((curr_a >> (7  - count)) & 1 ) $buffering 1
+    $volatile new_rem := ((curr_remainder << 1 ) | next_bit_from_dividend) $buffering 1
+    $volatile sub_shifted := (new_rem >= b) $buffering 1
+    $volatile new_quot := (curr_quotient | (1  << (7  - count))) $buffering 1
+    next_count := (count + 1 ) $buffering 1// bits of buffering = 8. 
+    next_remainder := ( $mux sub_shifted (new_rem - b)  new_rem )  $buffering 1// bits of buffering = 8. 
+    next_quotient := ( $mux sub_shifted new_quot  curr_quotient )  $buffering 1// bits of buffering = 8. 
+    next_a := curr_a $buffering 1// bits of buffering = 8. 
+    next_b := (curr_b >> 1 ) $buffering 1// bits of buffering = 8. 
+    $if continue_flag $then 
+    $place[loopback]
+    $else 
+    quotient := curr_quotient $buffering 1// bits of buffering = 8. 
+    $endif
+  }
+}
+// use of gated clocks in modules 

@@ -1,0 +1,967 @@
+// Virtual circuit produced from Aa description by Aa2VC 
+// Declared gated clocks.
+$module [global_storage_initializer_] 
+{
+  // pipe-declarations for block %global_storage_initializer_
+  //  file prog.linked.opt.aa, line 1
+  // there are no memory spaces local to this module.
+  $CP 
+  {
+    // begin control-path 
+  }
+  // end control-path
+  $DP 
+  {
+    // begin data-path 
+    // constant-object-declarations for block %global_storage_initializer_
+    //  file prog.linked.opt.aa, line 1
+  }
+  // end data-path
+}
+$module [shift_and_subtract_div] 
+{
+  $in a:$int<8>
+  // can point into  foreign( $void )
+  b:$int<8>
+  // can point into  foreign( $void )
+  $out quotient:$int<8>
+  // can point into  foreign( $void )
+  // pipe-declarations for block %shift_and_subtract_div
+  //  file prog.linked.opt.aa, line 8
+  // pipe-declarations for block %shift_and_subtract_div%loop
+  //  file prog.linked.opt.aa, line 13
+  // pipe-declarations for block %shift_and_subtract_div%loop%
+  //  file prog.linked.opt.aa, line 15
+  // there are no memory spaces local to this module.
+  $CP 
+  {
+    // begin control-path 
+    <>[branch_block_stmt_8] // Branch Block  file prog.linked.opt.aa, line 13
+    {
+      $P [branch_block_stmt_8__entry__]
+      branch_block_stmt_8__entry__ <-| ($entry)
+      $P [branch_block_stmt_8__exit__]
+      branch_block_stmt_8__exit__ |-> ($exit)
+      $P [merge_stmt_9__entry__] 
+      $P [merge_stmt_9__exit__] 
+      $P [assign_stmt_39_to_assign_stmt_96__entry__] 
+      $P [assign_stmt_39_to_assign_stmt_96__exit__] 
+      $P [if_stmt_97__entry__] 
+      $P [if_stmt_97__exit__] 
+      ::[assign_stmt_39_to_assign_stmt_96] 
+      {
+        // start: WAR dependencies for continue_flag
+        // ignored out-of-scope w_root 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+        // type of target is $uint<8>
+        // done: WAR dependencies for continue_flag
+        // start:  		$volatile continue_flag := (count < 8 ) $buffering 1
+        //  file prog.linked.opt.aa, line 27
+        // volatile! 
+        // Source expression
+        // (count < 8 )
+        // count
+        // Target expression
+        // (as target) continue_flag
+        // start: WAR dependencies for continue_flag
+        // ignored out-of-scope w_root 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+        // type of target is $uint<8>
+        // done: WAR dependencies for continue_flag
+        // end:  		$volatile continue_flag := (count < 8 ) $buffering 1
+        // start: WAR dependencies for next_bit_from_dividend
+        // ignored out-of-scope w_root 			$phi curr_a := 			  a $on   $entry 			  next_a $on   loopback 
+        // type of target is $uint<8>
+        // ignored out-of-scope w_root 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+        // type of target is $uint<8>
+        // done: WAR dependencies for next_bit_from_dividend
+        // start:  		$volatile next_bit_from_dividend := ((curr_a >> (7  - count)) & 1 ) $buffering 1
+        //  file prog.linked.opt.aa, line 28
+        // volatile! 
+        // Source expression
+        // ((curr_a >> (7  - count)) & 1 )
+        // (curr_a >> (7  - count))
+        // curr_a
+        // (7  - count)
+        // count
+        // Target expression
+        // (as target) next_bit_from_dividend
+        // start: WAR dependencies for next_bit_from_dividend
+        // ignored out-of-scope w_root 			$phi curr_a := 			  a $on   $entry 			  next_a $on   loopback 
+        // type of target is $uint<8>
+        // ignored out-of-scope w_root 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+        // type of target is $uint<8>
+        // done: WAR dependencies for next_bit_from_dividend
+        // end:  		$volatile next_bit_from_dividend := ((curr_a >> (7  - count)) & 1 ) $buffering 1
+        // start: WAR dependencies for new_rem
+        // ignored out-of-scope w_root 			$phi curr_a := 			  a $on   $entry 			  next_a $on   loopback 
+        // type of target is $uint<8>
+        // ignored out-of-scope w_root 			$phi curr_remainder := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_remainder $on   loopback 
+        // type of target is $uint<8>
+        // ignored out-of-scope w_root 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+        // type of target is $uint<8>
+        // done: WAR dependencies for new_rem
+        // start:  		$volatile new_rem := ((curr_remainder << 1 ) | next_bit_from_dividend) $buffering 1
+        //  file prog.linked.opt.aa, line 29
+        // volatile! 
+        // Source expression
+        // ((curr_remainder << 1 ) | next_bit_from_dividend)
+        // (curr_remainder << 1 )
+        // curr_remainder
+        // next_bit_from_dividend
+        // Target expression
+        // (as target) new_rem
+        // start: WAR dependencies for new_rem
+        // ignored out-of-scope w_root 			$phi curr_a := 			  a $on   $entry 			  next_a $on   loopback 
+        // type of target is $uint<8>
+        // ignored out-of-scope w_root 			$phi curr_remainder := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_remainder $on   loopback 
+        // type of target is $uint<8>
+        // ignored out-of-scope w_root 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+        // type of target is $uint<8>
+        // done: WAR dependencies for new_rem
+        // end:  		$volatile new_rem := ((curr_remainder << 1 ) | next_bit_from_dividend) $buffering 1
+        // start: WAR dependencies for sub_shifted
+        // ignored out-of-scope w_root  b : $uint<8> 
+        // ignored out-of-scope w_root 			$phi curr_a := 			  a $on   $entry 			  next_a $on   loopback 
+        // type of target is $uint<8>
+        // ignored out-of-scope w_root 			$phi curr_remainder := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_remainder $on   loopback 
+        // type of target is $uint<8>
+        // ignored out-of-scope w_root 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+        // type of target is $uint<8>
+        // done: WAR dependencies for sub_shifted
+        // start:  		$volatile sub_shifted := (new_rem >= b) $buffering 1
+        //  file prog.linked.opt.aa, line 30
+        // volatile! 
+        // Source expression
+        // (new_rem >= b)
+        // new_rem
+        // b
+        // Target expression
+        // (as target) sub_shifted
+        // start: WAR dependencies for sub_shifted
+        // ignored out-of-scope w_root  b : $uint<8> 
+        // ignored out-of-scope w_root 			$phi curr_a := 			  a $on   $entry 			  next_a $on   loopback 
+        // type of target is $uint<8>
+        // ignored out-of-scope w_root 			$phi curr_remainder := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_remainder $on   loopback 
+        // type of target is $uint<8>
+        // ignored out-of-scope w_root 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+        // type of target is $uint<8>
+        // done: WAR dependencies for sub_shifted
+        // end:  		$volatile sub_shifted := (new_rem >= b) $buffering 1
+        // start: WAR dependencies for new_quot
+        // ignored out-of-scope w_root 			$phi curr_quotient := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_quotient $on   loopback 
+        // type of target is $uint<8>
+        // ignored out-of-scope w_root 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+        // type of target is $uint<8>
+        // done: WAR dependencies for new_quot
+        // start:  		$volatile new_quot := (curr_quotient | (1  << (7  - count))) $buffering 1
+        //  file prog.linked.opt.aa, line 31
+        // volatile! 
+        // Source expression
+        // (curr_quotient | (1  << (7  - count)))
+        // curr_quotient
+        // (1  << (7  - count))
+        // (7  - count)
+        // count
+        // Target expression
+        // (as target) new_quot
+        // start: WAR dependencies for new_quot
+        // ignored out-of-scope w_root 			$phi curr_quotient := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_quotient $on   loopback 
+        // type of target is $uint<8>
+        // ignored out-of-scope w_root 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+        // type of target is $uint<8>
+        // done: WAR dependencies for new_quot
+        // end:  		$volatile new_quot := (curr_quotient | (1  << (7  - count))) $buffering 1
+        // start:  		next_count := (count + 1 ) $buffering 1// bits of buffering = 8. 
+        //  file prog.linked.opt.aa, line 32
+        // Source expression
+        // (count + 1 )
+        $T[ADD_u8_u8_73_sample_start_] 
+        $T[ADD_u8_u8_73_sample_completed_] 
+        $T[ADD_u8_u8_73_update_start_] 
+        $T[ADD_u8_u8_73_update_completed_] 
+        // count
+        // start: Forward dependencies from count to transition ADD_u8_u8_73_sample_start_
+        // done: Forward dependencies from count to transition ADD_u8_u8_73_sample_start_
+        ;;[ADD_u8_u8_73_Sample] 
+        {
+          // binary expression 
+          $T [rr] $T [ra]  // (split) binary operation 
+        }
+        ;;[ADD_u8_u8_73_Update] 
+        {
+          // binary expression 
+          $T [cr] $T [ca] // (split) binary operation 
+        }
+        ADD_u8_u8_73_sample_start_ &-> (ADD_u8_u8_73_Sample)
+        ADD_u8_u8_73_sample_completed_ <-& (ADD_u8_u8_73_Sample)
+        ADD_u8_u8_73_sample_completed_ &-> ($null)
+        ADD_u8_u8_73_update_start_ &-> (ADD_u8_u8_73_Update)
+        ADD_u8_u8_73_update_completed_ <-& (ADD_u8_u8_73_Update)
+        // Target expression
+        // (as target) next_count
+        // start: WAR dependencies for next_count
+        // done: WAR dependencies for next_count
+        // end:  		next_count := (count + 1 ) $buffering 1// bits of buffering = 8. 
+        // start:  		next_remainder := ( $mux sub_shifted (new_rem - b)  new_rem )  $buffering 1// bits of buffering = 8. 
+        //  file prog.linked.opt.aa, line 33
+        // Source expression
+        // ( $mux sub_shifted (new_rem - b)  new_rem ) 
+        $T[MUX_81_sample_start_] 
+        $T[MUX_81_sample_completed_] 
+        $T[MUX_81_update_start_] 
+        $T[MUX_81_update_completed_] 
+        // sub_shifted
+        // (new_rem - b)
+        // new_rem
+        // b
+        // new_rem
+        // start: Forward dependencies from sub_shifted to transition MUX_81_sample_start_
+        // done: Forward dependencies from sub_shifted to transition MUX_81_sample_start_
+        // start: Forward dependencies from (new_rem - b) to transition MUX_81_sample_start_
+        // done: Forward dependencies from (new_rem - b) to transition MUX_81_sample_start_
+        // start: Forward dependencies from new_rem to transition MUX_81_sample_start_
+        // done: Forward dependencies from new_rem to transition MUX_81_sample_start_
+        ;;[MUX_81_start] 
+        {
+          // ternary expression: 
+          $T [req] $T [ack] // sample req/ack
+        }
+        ;;[MUX_81_complete] 
+        {
+          // ternary expression: 
+          $T [req] $T [ack] // update req/ack
+        }
+        MUX_81_sample_start_ &-> (MUX_81_start)
+        MUX_81_sample_completed_ <-& (MUX_81_start)
+        MUX_81_sample_completed_ &-> ($null)
+        MUX_81_update_start_ &-> (MUX_81_complete)
+        MUX_81_update_completed_ <-& (MUX_81_complete)
+        // Target expression
+        // (as target) next_remainder
+        // start: WAR dependencies for next_remainder
+        // done: WAR dependencies for next_remainder
+        // end:  		next_remainder := ( $mux sub_shifted (new_rem - b)  new_rem )  $buffering 1// bits of buffering = 8. 
+        // start:  		next_quotient := ( $mux sub_shifted new_quot  curr_quotient )  $buffering 1// bits of buffering = 8. 
+        //  file prog.linked.opt.aa, line 34
+        // Source expression
+        // ( $mux sub_shifted new_quot  curr_quotient ) 
+        $T[MUX_87_sample_start_] 
+        $T[MUX_87_sample_completed_] 
+        $T[MUX_87_update_start_] 
+        $T[MUX_87_update_completed_] 
+        // sub_shifted
+        // new_quot
+        // curr_quotient
+        // start: Forward dependencies from sub_shifted to transition MUX_87_sample_start_
+        // done: Forward dependencies from sub_shifted to transition MUX_87_sample_start_
+        // start: Forward dependencies from new_quot to transition MUX_87_sample_start_
+        // done: Forward dependencies from new_quot to transition MUX_87_sample_start_
+        // start: Forward dependencies from curr_quotient to transition MUX_87_sample_start_
+        // done: Forward dependencies from curr_quotient to transition MUX_87_sample_start_
+        ;;[MUX_87_start] 
+        {
+          // ternary expression: 
+          $T [req] $T [ack] // sample req/ack
+        }
+        ;;[MUX_87_complete] 
+        {
+          // ternary expression: 
+          $T [req] $T [ack] // update req/ack
+        }
+        MUX_87_sample_start_ &-> (MUX_87_start)
+        MUX_87_sample_completed_ <-& (MUX_87_start)
+        MUX_87_sample_completed_ &-> ($null)
+        MUX_87_update_start_ &-> (MUX_87_complete)
+        MUX_87_update_completed_ <-& (MUX_87_complete)
+        // Target expression
+        // (as target) next_quotient
+        // start: WAR dependencies for next_quotient
+        // done: WAR dependencies for next_quotient
+        // end:  		next_quotient := ( $mux sub_shifted new_quot  curr_quotient )  $buffering 1// bits of buffering = 8. 
+        // start:  		next_a := curr_a $buffering 1// bits of buffering = 8. 
+        //  file prog.linked.opt.aa, line 35
+        $T[assign_stmt_91_sample_start_] 
+        $T[assign_stmt_91_sample_completed_] 
+        $T[assign_stmt_91_update_start_] 
+        $T[assign_stmt_91_update_completed_] 
+        // Source expression
+        // curr_a
+        // Target expression
+        // (as target) next_a
+        // both source and target are implicit: use interlock 
+        // Interlock 
+        ;;[assign_stmt_91_Sample] 
+        {
+          $T [req] $T [ack] // interlock-sample.
+        }
+        ;;[assign_stmt_91_Update] 
+        {
+          $T [req] $T [ack] // interlock-update.
+        }
+        assign_stmt_91_sample_start_ &-> (assign_stmt_91_Sample)
+        assign_stmt_91_sample_completed_ <-& (assign_stmt_91_Sample)
+        assign_stmt_91_sample_completed_ &-> ($null)
+        assign_stmt_91_update_start_ &-> (assign_stmt_91_Update)
+        assign_stmt_91_update_completed_ <-& (assign_stmt_91_Update)
+        // start: Forward dependencies from curr_a to transition assign_stmt_91_sample_start_
+        // done: Forward dependencies from curr_a to transition assign_stmt_91_sample_start_
+        // start: WAR dependencies for next_a
+        // done: WAR dependencies for next_a
+        // end:  		next_a := curr_a $buffering 1// bits of buffering = 8. 
+        // start:  		next_b := (curr_b >> 1 ) $buffering 1// bits of buffering = 8. 
+        //  file prog.linked.opt.aa, line 36
+        // Source expression
+        // (curr_b >> 1 )
+        $T[LSHR_u8_u8_95_sample_start_] 
+        $T[LSHR_u8_u8_95_sample_completed_] 
+        $T[LSHR_u8_u8_95_update_start_] 
+        $T[LSHR_u8_u8_95_update_completed_] 
+        // curr_b
+        // start: Forward dependencies from curr_b to transition LSHR_u8_u8_95_sample_start_
+        // done: Forward dependencies from curr_b to transition LSHR_u8_u8_95_sample_start_
+        ;;[LSHR_u8_u8_95_Sample] 
+        {
+          // binary expression 
+          $T [rr] $T [ra]  // (split) binary operation 
+        }
+        ;;[LSHR_u8_u8_95_Update] 
+        {
+          // binary expression 
+          $T [cr] $T [ca] // (split) binary operation 
+        }
+        LSHR_u8_u8_95_sample_start_ &-> (LSHR_u8_u8_95_Sample)
+        LSHR_u8_u8_95_sample_completed_ <-& (LSHR_u8_u8_95_Sample)
+        LSHR_u8_u8_95_sample_completed_ &-> ($null)
+        LSHR_u8_u8_95_update_start_ &-> (LSHR_u8_u8_95_Update)
+        LSHR_u8_u8_95_update_completed_ <-& (LSHR_u8_u8_95_Update)
+        // Target expression
+        // (as target) next_b
+        // start: WAR dependencies for next_b
+        // done: WAR dependencies for next_b
+        // end:  		next_b := (curr_b >> 1 ) $buffering 1// bits of buffering = 8. 
+        // load-store dependencies..
+      }
+      assign_stmt_39_to_assign_stmt_96__entry__ |-> (assign_stmt_39_to_assign_stmt_96)
+      assign_stmt_39_to_assign_stmt_96__exit__ <-| (assign_stmt_39_to_assign_stmt_96)
+      // if-statement  
+      //  file prog.linked.opt.aa, line 37
+      ;;[if_stmt_97_dead_link] 
+      {
+        $T [dead_transition] $dead 
+      }
+      if_stmt_97__entry__ |-> (if_stmt_97_dead_link)
+      if_stmt_97__exit__ <-| (if_stmt_97_dead_link)
+      ;;[if_stmt_97_eval_test] 
+      {
+        // test expression evaluate and trigger branch 
+        $T [branch_req] 
+      }
+      if_stmt_97__entry__ |-> (if_stmt_97_eval_test)
+      $P [R_continue_flag_98_place]
+      R_continue_flag_98_place <-| (if_stmt_97_eval_test)
+      ;;[if_stmt_97_if_link] 
+      {
+        $T [if_choice_transition] 
+      }
+      ;;[if_stmt_97_else_link] 
+      {
+        $T [else_choice_transition] 
+      }
+      R_continue_flag_98_place |-> (if_stmt_97_if_link if_stmt_97_else_link)
+      $P [loopback]
+      loopback <-| (if_stmt_97_if_link)
+      $P [assign_stmt_103__entry__] 
+      $P [assign_stmt_103__exit__] 
+      ::[assign_stmt_103] 
+      {
+        // start:  			quotient := curr_quotient $buffering 1// bits of buffering = 8. 
+        //  file prog.linked.opt.aa, line 40
+        $T[assign_stmt_103_sample_start_] 
+        $T[assign_stmt_103_sample_completed_] 
+        $T[assign_stmt_103_update_start_] 
+        $T[assign_stmt_103_update_completed_] 
+        // Source expression
+        // curr_quotient
+        // Target expression
+        // (as target) quotient
+        // quotient
+        // write to interface object
+        // both source and target are implicit: use interlock 
+        // Interlock 
+        ;;[assign_stmt_103_Sample] 
+        {
+          $T [req] $T [ack] // interlock-sample.
+        }
+        ;;[assign_stmt_103_Update] 
+        {
+          $T [req] $T [ack] // interlock-update.
+        }
+        assign_stmt_103_sample_start_ &-> (assign_stmt_103_Sample)
+        assign_stmt_103_sample_completed_ <-& (assign_stmt_103_Sample)
+        assign_stmt_103_sample_completed_ &-> ($null)
+        assign_stmt_103_update_start_ &-> (assign_stmt_103_Update)
+        assign_stmt_103_update_completed_ <-& (assign_stmt_103_Update)
+        // start: Forward dependencies from curr_quotient to transition assign_stmt_103_sample_start_
+        // done: Forward dependencies from curr_quotient to transition assign_stmt_103_sample_start_
+        // start: WAR dependencies for quotient
+        // done: WAR dependencies for quotient
+        // quotient
+        // write to interface object
+        // end:  			quotient := curr_quotient $buffering 1// bits of buffering = 8. 
+        // load-store dependencies..
+      }
+      assign_stmt_103__entry__ |-> (assign_stmt_103)
+      assign_stmt_103__exit__ <-| (assign_stmt_103)
+      assign_stmt_103__entry__ <-| (if_stmt_97_else_link)
+      assign_stmt_103__exit__ |-> (if_stmt_97__exit__)
+      // control-path for merge  
+      //  file prog.linked.opt.aa, line 15
+      ;;[merge_stmt_9_dead_link] 
+      {
+        $T [dead_transition] $dead 
+      }
+      merge_stmt_9__entry__ |-> (merge_stmt_9_dead_link)
+      merge_stmt_9__exit__ <-| (merge_stmt_9_dead_link)
+      //---------------------   merge statement  file prog.linked.opt.aa, line 15  --------------------------
+      ||[merge_stmt_9__entry___PhiReq] 
+      {
+        ;;[phi_stmt_10] 
+        {
+          ||[phi_stmt_10_sources] 
+          {
+            // sources for 			$phi curr_a := 			  a $on   $entry 			  next_a $on   loopback 
+            // type of target is $uint<8>
+            // trivial non-constant source .... interlock-buffer introduced 
+            || [Interlock] 
+            {
+              ;;[Sample] 
+              {
+                $T [req] $T [ack]
+              }
+              ;;[Update] 
+              {
+                $T [req] $T [ack]
+              }
+            }
+          }
+          $T [phi_stmt_10_req] 
+        }
+        ;;[phi_stmt_14] 
+        {
+          ||[phi_stmt_14_sources] 
+          {
+            // sources for 			$phi curr_b := 			  b $on   $entry 			  next_b $on   loopback 
+            // type of target is $uint<8>
+            // trivial non-constant source .... interlock-buffer introduced 
+            || [Interlock] 
+            {
+              ;;[Sample] 
+              {
+                $T [req] $T [ack]
+              }
+              ;;[Update] 
+              {
+                $T [req] $T [ack]
+              }
+            }
+          }
+          $T [phi_stmt_14_req] 
+        }
+        ;;[phi_stmt_18] 
+        {
+          ||[phi_stmt_18_sources] 
+          {
+            // sources for 			$phi curr_quotient := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_quotient $on   loopback 
+            // type of target is $uint<8>
+            // constant source .... delay transition 
+            $T [type_cast_22_konst_delay_trans] $delay
+          }
+          $T [phi_stmt_18_req] 
+        }
+        ;;[phi_stmt_23] 
+        {
+          ||[phi_stmt_23_sources] 
+          {
+            // sources for 			$phi curr_remainder := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_remainder $on   loopback 
+            // type of target is $uint<8>
+            // constant source .... delay transition 
+            $T [type_cast_26_konst_delay_trans] $delay
+          }
+          $T [phi_stmt_23_req] 
+        }
+        ;;[phi_stmt_28] 
+        {
+          ||[phi_stmt_28_sources] 
+          {
+            // sources for 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+            // type of target is $uint<8>
+            // constant source .... delay transition 
+            $T [type_cast_31_konst_delay_trans] $delay
+          }
+          $T [phi_stmt_28_req] 
+        }
+      }
+      merge_stmt_9__entry__ |-> (merge_stmt_9__entry___PhiReq)
+      ||[loopback_PhiReq] 
+      {
+        ;;[phi_stmt_10] 
+        {
+          ||[phi_stmt_10_sources] 
+          {
+            // sources for 			$phi curr_a := 			  a $on   $entry 			  next_a $on   loopback 
+            // type of target is $uint<8>
+            // trivial non-constant source .... interlock-buffer introduced 
+            || [Interlock] 
+            {
+              ;;[Sample] 
+              {
+                $T [req] $T [ack]
+              }
+              ;;[Update] 
+              {
+                $T [req] $T [ack]
+              }
+            }
+          }
+          $T [phi_stmt_10_req] 
+        }
+        ;;[phi_stmt_14] 
+        {
+          ||[phi_stmt_14_sources] 
+          {
+            // sources for 			$phi curr_b := 			  b $on   $entry 			  next_b $on   loopback 
+            // type of target is $uint<8>
+            // trivial non-constant source .... interlock-buffer introduced 
+            || [Interlock] 
+            {
+              ;;[Sample] 
+              {
+                $T [req] $T [ack]
+              }
+              ;;[Update] 
+              {
+                $T [req] $T [ack]
+              }
+            }
+          }
+          $T [phi_stmt_14_req] 
+        }
+        ;;[phi_stmt_18] 
+        {
+          ||[phi_stmt_18_sources] 
+          {
+            // sources for 			$phi curr_quotient := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_quotient $on   loopback 
+            // type of target is $uint<8>
+            // trivial non-constant source .... interlock-buffer introduced 
+            || [Interlock] 
+            {
+              ;;[Sample] 
+              {
+                $T [req] $T [ack]
+              }
+              ;;[Update] 
+              {
+                $T [req] $T [ack]
+              }
+            }
+          }
+          $T [phi_stmt_18_req] 
+        }
+        ;;[phi_stmt_23] 
+        {
+          ||[phi_stmt_23_sources] 
+          {
+            // sources for 			$phi curr_remainder := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_remainder $on   loopback 
+            // type of target is $uint<8>
+            // trivial non-constant source .... interlock-buffer introduced 
+            || [Interlock] 
+            {
+              ;;[Sample] 
+              {
+                $T [req] $T [ack]
+              }
+              ;;[Update] 
+              {
+                $T [req] $T [ack]
+              }
+            }
+          }
+          $T [phi_stmt_23_req] 
+        }
+        ;;[phi_stmt_28] 
+        {
+          ||[phi_stmt_28_sources] 
+          {
+            // sources for 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+            // type of target is $uint<8>
+            // trivial non-constant source .... interlock-buffer introduced 
+            || [Interlock] 
+            {
+              ;;[Sample] 
+              {
+                $T [req] $T [ack]
+              }
+              ;;[Update] 
+              {
+                $T [req] $T [ack]
+              }
+            }
+          }
+          $T [phi_stmt_28_req] 
+        }
+      }
+      loopback |-> (loopback_PhiReq)
+      $P [merge_stmt_9_PhiReqMerge] 
+      merge_stmt_9_PhiReqMerge <-| ( merge_stmt_9__entry___PhiReq  loopback_PhiReq )
+      ||[merge_stmt_9_PhiAck] 
+      {
+        $T [phi_stmt_10_ack] 
+        $T [phi_stmt_14_ack] 
+        $T [phi_stmt_18_ack] 
+        $T [phi_stmt_23_ack] 
+        $T [phi_stmt_28_ack] 
+      }
+      merge_stmt_9_PhiReqMerge |-> (merge_stmt_9_PhiAck)
+      merge_stmt_9__exit__  <-| (merge_stmt_9_PhiAck)
+      //---------------------  end of merge statement  file prog.linked.opt.aa, line 15  --------------------------
+      merge_stmt_9__entry__ <-| (branch_block_stmt_8__entry__)
+      assign_stmt_39_to_assign_stmt_96__entry__ <-| (merge_stmt_9__exit__)
+      if_stmt_97__entry__ <-| (assign_stmt_39_to_assign_stmt_96__exit__)
+      if_stmt_97__exit__ |-> (branch_block_stmt_8__exit__)
+    }
+  }
+  // end control-path
+  $DP 
+  {
+    // begin data-path 
+    // constant-object-declarations for block %shift_and_subtract_div%loop%
+    //  file prog.linked.opt.aa, line 15
+    // constant-object-declarations for block %shift_and_subtract_div%loop
+    //  file prog.linked.opt.aa, line 13
+    // constant-object-declarations for block %shift_and_subtract_div
+    //  file prog.linked.opt.aa, line 8
+    // constant-declarations for block %shift_and_subtract_div%loop
+    //  file prog.linked.opt.aa, line 13
+    // constant-declarations for block %shift_and_subtract_div%loop%
+    //  file prog.linked.opt.aa, line 15
+    // constant-declarations for phi:  			$phi curr_a := 			  a $on   $entry 			  next_a $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 16
+    // constant-declarations for phi:  			$phi curr_b := 			  b $on   $entry 			  next_b $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 18
+    // constant-declarations for phi:  			$phi curr_quotient := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_quotient $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 20
+    // ($bitcast ($uint<8>) 0  )
+    $constant $W[type_cast_22_wire_constant] : $int<8> := _b00000000// 0
+    // constant-declarations for phi:  			$phi curr_remainder := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_remainder $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 22
+    // ($bitcast ($uint<8>) 0  )
+    $constant $W[type_cast_26_wire_constant] : $int<8> := _b00000000// 0
+    // constant-declarations for phi:  			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 24
+    // ($bitcast ($uint<8>) 0  )
+    $constant $W[type_cast_31_wire_constant] : $int<8> := _b00000000// 0
+    // 8 
+    $constant $W[konst_36_wire_constant] : $int<8> := _b00001000// 8
+    // 7 
+    $constant $W[konst_42_wire_constant] : $int<8> := _b00000111// 7
+    // 1 
+    $constant $W[konst_46_wire_constant] : $int<8> := _b00000001// 1
+    // 1 
+    $constant $W[konst_51_wire_constant] : $int<8> := _b00000001// 1
+    // 1 
+    $constant $W[konst_63_wire_constant] : $int<8> := _b00000001// 1
+    // 7 
+    $constant $W[konst_64_wire_constant] : $int<8> := _b00000111// 7
+    // 1 
+    $constant $W[konst_72_wire_constant] : $int<8> := _b00000001// 1
+    // ( $mux sub_shifted (new_rem - b)  new_rem ) 
+    // ( $mux sub_shifted new_quot  curr_quotient ) 
+    // 1 
+    $constant $W[konst_94_wire_constant] : $int<8> := _b00000001// 1
+    // if-statement  
+    //  file prog.linked.opt.aa, line 37
+    // block %shift_and_subtract_div%loop
+    //  file prog.linked.opt.aa, line 13
+    // merge-statement  
+    //  file prog.linked.opt.aa, line 15
+    // 			$phi curr_a := 			  a $on   $entry 			  next_a $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 16
+    $W[a_12_buffered] : $int<8>
+    $W[next_a_91_13_buffered] : $int<8>
+    // curr_a
+    $W[curr_a_10] : $int<8>
+    // 			$phi curr_b := 			  b $on   $entry 			  next_b $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 18
+    $W[b_16_buffered] : $int<8>
+    $W[next_b_96_17_buffered] : $int<8>
+    // curr_b
+    $W[curr_b_14] : $int<8>
+    // 			$phi curr_quotient := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_quotient $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 20
+    $W[next_quotient_88_20_buffered] : $int<8>
+    // curr_quotient
+    $W[curr_quotient_18] : $int<8>
+    // 			$phi curr_remainder := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_remainder $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 22
+    $W[next_remainder_82_27_buffered] : $int<8>
+    // curr_remainder
+    $W[curr_remainder_23] : $int<8>
+    // 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 24
+    $W[next_count_74_32_buffered] : $int<8>
+    // count
+    $W[count_28] : $int<8>
+    // 		$volatile continue_flag := (count < 8 ) $buffering 1
+    //  file prog.linked.opt.aa, line 27
+    // continue_flag
+    $W[continue_flag_39] : $int<1>
+    // 		$volatile next_bit_from_dividend := ((curr_a >> (7  - count)) & 1 ) $buffering 1
+    //  file prog.linked.opt.aa, line 28
+    // (7  - count)
+    $intermediate $W[SUB_u8_u8_44_wire] : $int<8>
+    // (curr_a >> (7  - count))
+    $intermediate $W[LSHR_u8_u8_45_wire] : $int<8>
+    // next_bit_from_dividend
+    $W[next_bit_from_dividend_48] : $int<8>
+    // 		$volatile new_rem := ((curr_remainder << 1 ) | next_bit_from_dividend) $buffering 1
+    //  file prog.linked.opt.aa, line 29
+    // (curr_remainder << 1 )
+    $intermediate $W[SHL_u8_u8_52_wire] : $int<8>
+    // new_rem
+    $W[new_rem_55] : $int<8>
+    // 		$volatile sub_shifted := (new_rem >= b) $buffering 1
+    //  file prog.linked.opt.aa, line 30
+    // sub_shifted
+    $W[sub_shifted_60] : $int<1>
+    // 		$volatile new_quot := (curr_quotient | (1  << (7  - count))) $buffering 1
+    //  file prog.linked.opt.aa, line 31
+    // (7  - count)
+    $intermediate $W[SUB_u8_u8_66_wire] : $int<8>
+    // (1  << (7  - count))
+    $intermediate $W[SHL_u8_u8_67_wire] : $int<8>
+    // new_quot
+    $W[new_quot_69] : $int<8>
+    // 		next_count := (count + 1 ) $buffering 1// bits of buffering = 8. 
+    //  file prog.linked.opt.aa, line 32
+    // next_count
+    $W[next_count_74] : $int<8>
+    // 		next_remainder := ( $mux sub_shifted (new_rem - b)  new_rem )  $buffering 1// bits of buffering = 8. 
+    //  file prog.linked.opt.aa, line 33
+    // (new_rem - b)
+    $intermediate $W[SUB_u8_u8_79_wire] : $int<8>
+    // next_remainder
+    $W[next_remainder_82] : $int<8>
+    // 		next_quotient := ( $mux sub_shifted new_quot  curr_quotient )  $buffering 1// bits of buffering = 8. 
+    //  file prog.linked.opt.aa, line 34
+    // next_quotient
+    $W[next_quotient_88] : $int<8>
+    // 		next_a := curr_a $buffering 1// bits of buffering = 8. 
+    //  file prog.linked.opt.aa, line 35
+    // next_a
+    $W[next_a_91] : $int<8>
+    // 		next_b := (curr_b >> 1 ) $buffering 1// bits of buffering = 8. 
+    //  file prog.linked.opt.aa, line 36
+    // next_b
+    $W[next_b_96] : $int<8>
+    // if statement  
+    //  file prog.linked.opt.aa, line 37
+    // 			quotient := curr_quotient $buffering 1// bits of buffering = 8. 
+    //  file prog.linked.opt.aa, line 40
+    // quotient
+    // datapath-instances for block %shift_and_subtract_div%loop
+    //  file prog.linked.opt.aa, line 13
+    // data-path instances for merge  
+    //  file prog.linked.opt.aa, line 15
+    // 			$phi curr_a := 			  a $on   $entry 			  next_a $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 16
+    # := [a_12_buf] (a) (a_12_buffered)    
+    # := [next_a_91_13_buf] (next_a_91) (next_a_91_13_buffered)    
+    $phi [phi_stmt_10] (a_12_buffered next_a_91_13_buffered) ( curr_a_10 ) 
+    // 			$phi curr_b := 			  b $on   $entry 			  next_b $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 18
+    # := [b_16_buf] (b) (b_16_buffered)    
+    # := [next_b_96_17_buf] (next_b_96) (next_b_96_17_buffered)    
+    $phi [phi_stmt_14] (b_16_buffered next_b_96_17_buffered) ( curr_b_14 ) 
+    // 			$phi curr_quotient := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_quotient $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 20
+    # := [next_quotient_88_20_buf] (next_quotient_88) (next_quotient_88_20_buffered)    
+    $phi [phi_stmt_18] (next_quotient_88_20_buffered type_cast_22_wire_constant) ( curr_quotient_18 ) 
+    // 			$phi curr_remainder := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_remainder $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 22
+    # := [next_remainder_82_27_buf] (next_remainder_82) (next_remainder_82_27_buffered)    
+    $phi [phi_stmt_23] (type_cast_26_wire_constant next_remainder_82_27_buffered) ( curr_remainder_23 ) 
+    // 			$phi count := 			  ($bitcast ($uint<8>) 0  ) $on   $entry 			  next_count $on   loopback 
+    // type of target is $uint<8>
+    //  file prog.linked.opt.aa, line 24
+    # := [next_count_74_32_buf] (next_count_74) (next_count_74_32_buffered)    
+    $phi [phi_stmt_28] (type_cast_31_wire_constant next_count_74_32_buffered) ( count_28 ) 
+    // 		$volatile continue_flag := (count < 8 ) $buffering 1
+    //  file prog.linked.opt.aa, line 27
+    // (count < 8 )
+    <[ULT_u8_u1_37_inst] (count_28 konst_36_wire_constant) (continue_flag_39)   $flowthrough 
+    $delay ULT_u8_u1_37_inst 0
+    // 		$volatile next_bit_from_dividend := ((curr_a >> (7  - count)) & 1 ) $buffering 1
+    //  file prog.linked.opt.aa, line 28
+    // (7  - count)
+    -[SUB_u8_u8_44_inst] (konst_42_wire_constant count_28) (SUB_u8_u8_44_wire)   $flowthrough 
+    $delay SUB_u8_u8_44_inst 0
+    // (curr_a >> (7  - count))
+    >>[LSHR_u8_u8_45_inst] (curr_a_10 SUB_u8_u8_44_wire) (LSHR_u8_u8_45_wire)   $flowthrough 
+    $delay LSHR_u8_u8_45_inst 0
+    // ((curr_a >> (7  - count)) & 1 )
+    &[AND_u8_u8_47_inst] (LSHR_u8_u8_45_wire konst_46_wire_constant) (next_bit_from_dividend_48)   $flowthrough 
+    $delay AND_u8_u8_47_inst 0
+    // 		$volatile new_rem := ((curr_remainder << 1 ) | next_bit_from_dividend) $buffering 1
+    //  file prog.linked.opt.aa, line 29
+    // (curr_remainder << 1 )
+    <<[SHL_u8_u8_52_inst] (curr_remainder_23 konst_51_wire_constant) (SHL_u8_u8_52_wire)   $flowthrough 
+    $delay SHL_u8_u8_52_inst 0
+    // ((curr_remainder << 1 ) | next_bit_from_dividend)
+    |[OR_u8_u8_54_inst] (SHL_u8_u8_52_wire next_bit_from_dividend_48) (new_rem_55)   $flowthrough 
+    $delay OR_u8_u8_54_inst 0
+    // 		$volatile sub_shifted := (new_rem >= b) $buffering 1
+    //  file prog.linked.opt.aa, line 30
+    // (new_rem >= b)
+    >=[UGE_u8_u1_59_inst] (new_rem_55 b) (sub_shifted_60)   $flowthrough 
+    $delay UGE_u8_u1_59_inst 0
+    // 		$volatile new_quot := (curr_quotient | (1  << (7  - count))) $buffering 1
+    //  file prog.linked.opt.aa, line 31
+    // (7  - count)
+    -[SUB_u8_u8_66_inst] (konst_64_wire_constant count_28) (SUB_u8_u8_66_wire)   $flowthrough 
+    $delay SUB_u8_u8_66_inst 0
+    // (1  << (7  - count))
+    <<[SHL_u8_u8_67_inst] (konst_63_wire_constant SUB_u8_u8_66_wire) (SHL_u8_u8_67_wire)   $flowthrough 
+    $delay SHL_u8_u8_67_inst 0
+    // (curr_quotient | (1  << (7  - count)))
+    |[OR_u8_u8_68_inst] (curr_quotient_18 SHL_u8_u8_67_wire) (new_quot_69)   $flowthrough 
+    $delay OR_u8_u8_68_inst 0
+    // 		next_count := (count + 1 ) $buffering 1// bits of buffering = 8. 
+    //  file prog.linked.opt.aa, line 32
+    // (count + 1 )
+    +[ADD_u8_u8_73_inst] (count_28 konst_72_wire_constant) (next_count_74)   
+    $buffering  $out ADD_u8_u8_73_inst next_count_74 1
+    $delay ADD_u8_u8_73_inst 1
+    // 		next_remainder := ( $mux sub_shifted (new_rem - b)  new_rem )  $buffering 1// bits of buffering = 8. 
+    //  file prog.linked.opt.aa, line 33
+    // (new_rem - b)
+    -[SUB_u8_u8_79_inst] (new_rem_55 b) (SUB_u8_u8_79_wire)   $flowthrough 
+    $delay SUB_u8_u8_79_inst 0
+    // ( $mux sub_shifted (new_rem - b)  new_rem ) 
+    ? [MUX_81_inst] (sub_shifted_60 SUB_u8_u8_79_wire new_rem_55) (next_remainder_82) 
+    $buffering  $out MUX_81_inst next_remainder_82 1
+    // 		next_quotient := ( $mux sub_shifted new_quot  curr_quotient )  $buffering 1// bits of buffering = 8. 
+    //  file prog.linked.opt.aa, line 34
+    // ( $mux sub_shifted new_quot  curr_quotient ) 
+    ? [MUX_87_inst] (sub_shifted_60 new_quot_69 curr_quotient_18) (next_quotient_88) 
+    $buffering  $out MUX_87_inst next_quotient_88 1
+    // 		next_a := curr_a $buffering 1// bits of buffering = 8. 
+    //  file prog.linked.opt.aa, line 35
+    # := [W_next_a_89_inst] (curr_a_10) (next_a_91)    
+    // 		next_b := (curr_b >> 1 ) $buffering 1// bits of buffering = 8. 
+    //  file prog.linked.opt.aa, line 36
+    // (curr_b >> 1 )
+    >>[LSHR_u8_u8_95_inst] (curr_b_14 konst_94_wire_constant) (next_b_96)   
+    $buffering  $out LSHR_u8_u8_95_inst next_b_96 1
+    $delay LSHR_u8_u8_95_inst 1
+    // datapath-instances for if  
+    //  file prog.linked.opt.aa, line 37
+    ==0? [if_stmt_97_branch] (continue_flag_39)
+    // 			quotient := curr_quotient $buffering 1// bits of buffering = 8. 
+    //  file prog.linked.opt.aa, line 40
+    # := [W_quotient_101_inst] (curr_quotient_18) (quotient)    
+  }
+  // end data-path
+  // CP-DP links for merge  
+  //  file prog.linked.opt.aa, line 15
+  a_12_buf <=> (branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_10/phi_stmt_10_sources/Interlock/Sample/req branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_10/phi_stmt_10_sources/Interlock/Update/req) (branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_10/phi_stmt_10_sources/Interlock/Sample/ack branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_10/phi_stmt_10_sources/Interlock/Update/ack)
+  next_a_91_13_buf <=> (branch_block_stmt_8/loopback_PhiReq/phi_stmt_10/phi_stmt_10_sources/Interlock/Sample/req branch_block_stmt_8/loopback_PhiReq/phi_stmt_10/phi_stmt_10_sources/Interlock/Update/req) (branch_block_stmt_8/loopback_PhiReq/phi_stmt_10/phi_stmt_10_sources/Interlock/Sample/ack branch_block_stmt_8/loopback_PhiReq/phi_stmt_10/phi_stmt_10_sources/Interlock/Update/ack)
+  phi_stmt_10 <=> (branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_10/phi_stmt_10_req branch_block_stmt_8/loopback_PhiReq/phi_stmt_10/phi_stmt_10_req) (branch_block_stmt_8/merge_stmt_9_PhiAck/phi_stmt_10_ack)
+  b_16_buf <=> (branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_14/phi_stmt_14_sources/Interlock/Sample/req branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_14/phi_stmt_14_sources/Interlock/Update/req) (branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_14/phi_stmt_14_sources/Interlock/Sample/ack branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_14/phi_stmt_14_sources/Interlock/Update/ack)
+  next_b_96_17_buf <=> (branch_block_stmt_8/loopback_PhiReq/phi_stmt_14/phi_stmt_14_sources/Interlock/Sample/req branch_block_stmt_8/loopback_PhiReq/phi_stmt_14/phi_stmt_14_sources/Interlock/Update/req) (branch_block_stmt_8/loopback_PhiReq/phi_stmt_14/phi_stmt_14_sources/Interlock/Sample/ack branch_block_stmt_8/loopback_PhiReq/phi_stmt_14/phi_stmt_14_sources/Interlock/Update/ack)
+  phi_stmt_14 <=> (branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_14/phi_stmt_14_req branch_block_stmt_8/loopback_PhiReq/phi_stmt_14/phi_stmt_14_req) (branch_block_stmt_8/merge_stmt_9_PhiAck/phi_stmt_14_ack)
+  next_quotient_88_20_buf <=> (branch_block_stmt_8/loopback_PhiReq/phi_stmt_18/phi_stmt_18_sources/Interlock/Sample/req branch_block_stmt_8/loopback_PhiReq/phi_stmt_18/phi_stmt_18_sources/Interlock/Update/req) (branch_block_stmt_8/loopback_PhiReq/phi_stmt_18/phi_stmt_18_sources/Interlock/Sample/ack branch_block_stmt_8/loopback_PhiReq/phi_stmt_18/phi_stmt_18_sources/Interlock/Update/ack)
+  phi_stmt_18 <=> (branch_block_stmt_8/loopback_PhiReq/phi_stmt_18/phi_stmt_18_req branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_18/phi_stmt_18_req) (branch_block_stmt_8/merge_stmt_9_PhiAck/phi_stmt_18_ack)
+  next_remainder_82_27_buf <=> (branch_block_stmt_8/loopback_PhiReq/phi_stmt_23/phi_stmt_23_sources/Interlock/Sample/req branch_block_stmt_8/loopback_PhiReq/phi_stmt_23/phi_stmt_23_sources/Interlock/Update/req) (branch_block_stmt_8/loopback_PhiReq/phi_stmt_23/phi_stmt_23_sources/Interlock/Sample/ack branch_block_stmt_8/loopback_PhiReq/phi_stmt_23/phi_stmt_23_sources/Interlock/Update/ack)
+  phi_stmt_23 <=> (branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_23/phi_stmt_23_req branch_block_stmt_8/loopback_PhiReq/phi_stmt_23/phi_stmt_23_req) (branch_block_stmt_8/merge_stmt_9_PhiAck/phi_stmt_23_ack)
+  next_count_74_32_buf <=> (branch_block_stmt_8/loopback_PhiReq/phi_stmt_28/phi_stmt_28_sources/Interlock/Sample/req branch_block_stmt_8/loopback_PhiReq/phi_stmt_28/phi_stmt_28_sources/Interlock/Update/req) (branch_block_stmt_8/loopback_PhiReq/phi_stmt_28/phi_stmt_28_sources/Interlock/Sample/ack branch_block_stmt_8/loopback_PhiReq/phi_stmt_28/phi_stmt_28_sources/Interlock/Update/ack)
+  phi_stmt_28 <=> (branch_block_stmt_8/merge_stmt_9__entry___PhiReq/phi_stmt_28/phi_stmt_28_req branch_block_stmt_8/loopback_PhiReq/phi_stmt_28/phi_stmt_28_req) (branch_block_stmt_8/merge_stmt_9_PhiAck/phi_stmt_28_ack)
+  // 		$volatile continue_flag := (count < 8 ) $buffering 1
+  //  file prog.linked.opt.aa, line 27
+  // (count < 8 )
+  // count
+  // 		$volatile next_bit_from_dividend := ((curr_a >> (7  - count)) & 1 ) $buffering 1
+  //  file prog.linked.opt.aa, line 28
+  // ((curr_a >> (7  - count)) & 1 )
+  // (curr_a >> (7  - count))
+  // curr_a
+  // (7  - count)
+  // count
+  // 		$volatile new_rem := ((curr_remainder << 1 ) | next_bit_from_dividend) $buffering 1
+  //  file prog.linked.opt.aa, line 29
+  // ((curr_remainder << 1 ) | next_bit_from_dividend)
+  // (curr_remainder << 1 )
+  // curr_remainder
+  // next_bit_from_dividend
+  // 		$volatile sub_shifted := (new_rem >= b) $buffering 1
+  //  file prog.linked.opt.aa, line 30
+  // (new_rem >= b)
+  // new_rem
+  // b
+  // 		$volatile new_quot := (curr_quotient | (1  << (7  - count))) $buffering 1
+  //  file prog.linked.opt.aa, line 31
+  // (curr_quotient | (1  << (7  - count)))
+  // curr_quotient
+  // (1  << (7  - count))
+  // (7  - count)
+  // count
+  // 		next_count := (count + 1 ) $buffering 1// bits of buffering = 8. 
+  //  file prog.linked.opt.aa, line 32
+  // (count + 1 )
+  // count
+  ADD_u8_u8_73_inst <=> (branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/ADD_u8_u8_73_Sample/rr branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/ADD_u8_u8_73_Update/cr) (branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/ADD_u8_u8_73_Sample/ra branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/ADD_u8_u8_73_Update/ca)
+  // 		next_remainder := ( $mux sub_shifted (new_rem - b)  new_rem )  $buffering 1// bits of buffering = 8. 
+  //  file prog.linked.opt.aa, line 33
+  // sub_shifted
+  // (new_rem - b)
+  // new_rem
+  // b
+  // new_rem
+  // ( $mux sub_shifted (new_rem - b)  new_rem ) 
+  MUX_81_inst <=> (branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/MUX_81_start/req branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/MUX_81_complete/req) (branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/MUX_81_start/ack branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/MUX_81_complete/ack)
+  // 		next_quotient := ( $mux sub_shifted new_quot  curr_quotient )  $buffering 1// bits of buffering = 8. 
+  //  file prog.linked.opt.aa, line 34
+  // sub_shifted
+  // new_quot
+  // curr_quotient
+  // ( $mux sub_shifted new_quot  curr_quotient ) 
+  MUX_87_inst <=> (branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/MUX_87_start/req branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/MUX_87_complete/req) (branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/MUX_87_start/ack branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/MUX_87_complete/ack)
+  // 		next_a := curr_a $buffering 1// bits of buffering = 8. 
+  //  file prog.linked.opt.aa, line 35
+  // curr_a
+  W_next_a_89_inst <=> (branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/assign_stmt_91_Sample/req branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/assign_stmt_91_Update/req) (branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/assign_stmt_91_Sample/ack branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/assign_stmt_91_Update/ack)
+  // 		next_b := (curr_b >> 1 ) $buffering 1// bits of buffering = 8. 
+  //  file prog.linked.opt.aa, line 36
+  // (curr_b >> 1 )
+  // curr_b
+  LSHR_u8_u8_95_inst <=> (branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/LSHR_u8_u8_95_Sample/rr branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/LSHR_u8_u8_95_Update/cr) (branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/LSHR_u8_u8_95_Sample/ra branch_block_stmt_8/assign_stmt_39_to_assign_stmt_96/LSHR_u8_u8_95_Update/ca)
+  // CP-DP links for if  
+  //  file prog.linked.opt.aa, line 37
+  if_stmt_97_branch <=> (branch_block_stmt_8/if_stmt_97_eval_test/branch_req) (branch_block_stmt_8/if_stmt_97_else_link/else_choice_transition branch_block_stmt_8/if_stmt_97_if_link/if_choice_transition)
+  // 			quotient := curr_quotient $buffering 1// bits of buffering = 8. 
+  //  file prog.linked.opt.aa, line 40
+  // curr_quotient
+  W_quotient_101_inst <=> (branch_block_stmt_8/assign_stmt_103/assign_stmt_103_Sample/req branch_block_stmt_8/assign_stmt_103/assign_stmt_103_Update/req) (branch_block_stmt_8/assign_stmt_103/assign_stmt_103_Sample/ack branch_block_stmt_8/assign_stmt_103/assign_stmt_103_Update/ack)
+}
