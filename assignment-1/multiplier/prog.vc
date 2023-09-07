@@ -1,0 +1,764 @@
+// Virtual circuit produced from Aa description by Aa2VC 
+// Declared gated clocks.
+$module [global_storage_initializer_] 
+{
+  // pipe-declarations for block %global_storage_initializer_
+  //  file prog.linked.opt.aa, line 1
+  // there are no memory spaces local to this module.
+  $CP 
+  {
+    // begin control-path 
+  }
+  // end control-path
+  $DP 
+  {
+    // begin data-path 
+    // constant-object-declarations for block %global_storage_initializer_
+    //  file prog.linked.opt.aa, line 1
+  }
+  // end data-path
+}
+$module [shift_and_add_mul] 
+{
+  $in a_in:$int<8>
+  // can point into  foreign( $void )
+  b_in:$int<8>
+  // can point into  foreign( $void )
+  $out product:$int<16>
+  // can point into  foreign( $void )
+  // pipe-declarations for block %shift_and_add_mul
+  //  file prog.linked.opt.aa, line 8
+  // pipe-declarations for block %shift_and_add_mul%loop
+  //  file prog.linked.opt.aa, line 13
+  // pipe-declarations for block %shift_and_add_mul%loop%
+  //  file prog.linked.opt.aa, line 15
+  // there are no memory spaces local to this module.
+  $CP 
+  {
+    // begin control-path 
+    <>[branch_block_stmt_9] // Branch Block  file prog.linked.opt.aa, line 13
+    {
+      $P [branch_block_stmt_9__entry__]
+      branch_block_stmt_9__entry__ <-| ($entry)
+      $P [branch_block_stmt_9__exit__]
+      branch_block_stmt_9__exit__ |-> ($exit)
+      $P [merge_stmt_10__entry__] 
+      $P [merge_stmt_10__exit__] 
+      $P [assign_stmt_37_to_assign_stmt_70__entry__] 
+      $P [assign_stmt_37_to_assign_stmt_70__exit__] 
+      $P [if_stmt_71__entry__] 
+      $P [if_stmt_71__exit__] 
+      ::[assign_stmt_37_to_assign_stmt_70] 
+      {
+        // start: WAR dependencies for continue_flag
+        // ignored out-of-scope w_root 			$phi b := 			  next_b $on   loopback 			  ($bitcast ($uint<16>) b_in ) $on   $entry 
+        // type of target is $uint<16>
+        // done: WAR dependencies for continue_flag
+        // start:  		$volatile continue_flag := (b != 0 ) $buffering 1
+        //  file prog.linked.opt.aa, line 25
+        // volatile! 
+        // Source expression
+        // (b != 0 )
+        // b
+        // Target expression
+        // (as target) continue_flag
+        // start: WAR dependencies for continue_flag
+        // ignored out-of-scope w_root 			$phi b := 			  next_b $on   loopback 			  ($bitcast ($uint<16>) b_in ) $on   $entry 
+        // type of target is $uint<16>
+        // done: WAR dependencies for continue_flag
+        // end:  		$volatile continue_flag := (b != 0 ) $buffering 1
+        // start: WAR dependencies for add_shifted
+        // ignored out-of-scope w_root 			$phi b := 			  next_b $on   loopback 			  ($bitcast ($uint<16>) b_in ) $on   $entry 
+        // type of target is $uint<16>
+        // done: WAR dependencies for add_shifted
+        // start:  		$volatile add_shifted := ((b & 1 ) != 0 ) $buffering 1
+        //  file prog.linked.opt.aa, line 26
+        // volatile! 
+        // Source expression
+        // ((b & 1 ) != 0 )
+        // (b & 1 )
+        // b
+        // Target expression
+        // (as target) add_shifted
+        // start: WAR dependencies for add_shifted
+        // ignored out-of-scope w_root 			$phi b := 			  next_b $on   loopback 			  ($bitcast ($uint<16>) b_in ) $on   $entry 
+        // type of target is $uint<16>
+        // done: WAR dependencies for add_shifted
+        // end:  		$volatile add_shifted := ((b & 1 ) != 0 ) $buffering 1
+        // start: WAR dependencies for shifted_sum
+        // ignored out-of-scope w_root 			$phi a := 			  ($bitcast ($uint<16>) a_in ) $on   $entry 			  next_a $on   loopback 
+        // type of target is $uint<16>
+        // ignored out-of-scope w_root 			$phi sum := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_sum $on   loopback 
+        // type of target is $uint<16>
+        // ignored out-of-scope w_root 			$phi count := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_count $on   loopback 
+        // type of target is $uint<16>
+        // done: WAR dependencies for shifted_sum
+        // start:  		$volatile shifted_sum := (sum + (a << count)) $buffering 1
+        //  file prog.linked.opt.aa, line 27
+        // volatile! 
+        // Source expression
+        // (sum + (a << count))
+        // sum
+        // (a << count)
+        // a
+        // count
+        // Target expression
+        // (as target) shifted_sum
+        // start: WAR dependencies for shifted_sum
+        // ignored out-of-scope w_root 			$phi a := 			  ($bitcast ($uint<16>) a_in ) $on   $entry 			  next_a $on   loopback 
+        // type of target is $uint<16>
+        // ignored out-of-scope w_root 			$phi sum := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_sum $on   loopback 
+        // type of target is $uint<16>
+        // ignored out-of-scope w_root 			$phi count := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_count $on   loopback 
+        // type of target is $uint<16>
+        // done: WAR dependencies for shifted_sum
+        // end:  		$volatile shifted_sum := (sum + (a << count)) $buffering 1
+        // start:  		next_count := (count + 1 ) $buffering 1// bits of buffering = 16. 
+        //  file prog.linked.opt.aa, line 28
+        // Source expression
+        // (count + 1 )
+        $T[ADD_u16_u16_55_sample_start_] 
+        $T[ADD_u16_u16_55_sample_completed_] 
+        $T[ADD_u16_u16_55_update_start_] 
+        $T[ADD_u16_u16_55_update_completed_] 
+        // count
+        // start: Forward dependencies from count to transition ADD_u16_u16_55_sample_start_
+        // done: Forward dependencies from count to transition ADD_u16_u16_55_sample_start_
+        ;;[ADD_u16_u16_55_Sample] 
+        {
+          // binary expression 
+          $T [rr] $T [ra]  // (split) binary operation 
+        }
+        ;;[ADD_u16_u16_55_Update] 
+        {
+          // binary expression 
+          $T [cr] $T [ca] // (split) binary operation 
+        }
+        ADD_u16_u16_55_sample_start_ &-> (ADD_u16_u16_55_Sample)
+        ADD_u16_u16_55_sample_completed_ <-& (ADD_u16_u16_55_Sample)
+        ADD_u16_u16_55_sample_completed_ &-> ($null)
+        ADD_u16_u16_55_update_start_ &-> (ADD_u16_u16_55_Update)
+        ADD_u16_u16_55_update_completed_ <-& (ADD_u16_u16_55_Update)
+        // Target expression
+        // (as target) next_count
+        // start: WAR dependencies for next_count
+        // done: WAR dependencies for next_count
+        // end:  		next_count := (count + 1 ) $buffering 1// bits of buffering = 16. 
+        // start:  		next_sum := ( $mux add_shifted shifted_sum  sum )  $buffering 1// bits of buffering = 16. 
+        //  file prog.linked.opt.aa, line 29
+        // Source expression
+        // ( $mux add_shifted shifted_sum  sum ) 
+        $T[MUX_61_sample_start_] 
+        $T[MUX_61_sample_completed_] 
+        $T[MUX_61_update_start_] 
+        $T[MUX_61_update_completed_] 
+        // add_shifted
+        // shifted_sum
+        // sum
+        // start: Forward dependencies from add_shifted to transition MUX_61_sample_start_
+        // done: Forward dependencies from add_shifted to transition MUX_61_sample_start_
+        // start: Forward dependencies from shifted_sum to transition MUX_61_sample_start_
+        // done: Forward dependencies from shifted_sum to transition MUX_61_sample_start_
+        // start: Forward dependencies from sum to transition MUX_61_sample_start_
+        // done: Forward dependencies from sum to transition MUX_61_sample_start_
+        ;;[MUX_61_start] 
+        {
+          // ternary expression: 
+          $T [req] $T [ack] // sample req/ack
+        }
+        ;;[MUX_61_complete] 
+        {
+          // ternary expression: 
+          $T [req] $T [ack] // update req/ack
+        }
+        MUX_61_sample_start_ &-> (MUX_61_start)
+        MUX_61_sample_completed_ <-& (MUX_61_start)
+        MUX_61_sample_completed_ &-> ($null)
+        MUX_61_update_start_ &-> (MUX_61_complete)
+        MUX_61_update_completed_ <-& (MUX_61_complete)
+        // Target expression
+        // (as target) next_sum
+        // start: WAR dependencies for next_sum
+        // done: WAR dependencies for next_sum
+        // end:  		next_sum := ( $mux add_shifted shifted_sum  sum )  $buffering 1// bits of buffering = 16. 
+        // start:  		next_a := a $buffering 1// bits of buffering = 16. 
+        //  file prog.linked.opt.aa, line 30
+        $T[assign_stmt_65_sample_start_] 
+        $T[assign_stmt_65_sample_completed_] 
+        $T[assign_stmt_65_update_start_] 
+        $T[assign_stmt_65_update_completed_] 
+        // Source expression
+        // a
+        // Target expression
+        // (as target) next_a
+        // both source and target are implicit: use interlock 
+        // Interlock 
+        ;;[assign_stmt_65_Sample] 
+        {
+          $T [req] $T [ack] // interlock-sample.
+        }
+        ;;[assign_stmt_65_Update] 
+        {
+          $T [req] $T [ack] // interlock-update.
+        }
+        assign_stmt_65_sample_start_ &-> (assign_stmt_65_Sample)
+        assign_stmt_65_sample_completed_ <-& (assign_stmt_65_Sample)
+        assign_stmt_65_sample_completed_ &-> ($null)
+        assign_stmt_65_update_start_ &-> (assign_stmt_65_Update)
+        assign_stmt_65_update_completed_ <-& (assign_stmt_65_Update)
+        // start: Forward dependencies from a to transition assign_stmt_65_sample_start_
+        // done: Forward dependencies from a to transition assign_stmt_65_sample_start_
+        // start: WAR dependencies for next_a
+        // done: WAR dependencies for next_a
+        // end:  		next_a := a $buffering 1// bits of buffering = 16. 
+        // start:  		next_b := (b >> 1 ) $buffering 1// bits of buffering = 16. 
+        //  file prog.linked.opt.aa, line 31
+        // Source expression
+        // (b >> 1 )
+        $T[LSHR_u16_u16_69_sample_start_] 
+        $T[LSHR_u16_u16_69_sample_completed_] 
+        $T[LSHR_u16_u16_69_update_start_] 
+        $T[LSHR_u16_u16_69_update_completed_] 
+        // b
+        // start: Forward dependencies from b to transition LSHR_u16_u16_69_sample_start_
+        // done: Forward dependencies from b to transition LSHR_u16_u16_69_sample_start_
+        ;;[LSHR_u16_u16_69_Sample] 
+        {
+          // binary expression 
+          $T [rr] $T [ra]  // (split) binary operation 
+        }
+        ;;[LSHR_u16_u16_69_Update] 
+        {
+          // binary expression 
+          $T [cr] $T [ca] // (split) binary operation 
+        }
+        LSHR_u16_u16_69_sample_start_ &-> (LSHR_u16_u16_69_Sample)
+        LSHR_u16_u16_69_sample_completed_ <-& (LSHR_u16_u16_69_Sample)
+        LSHR_u16_u16_69_sample_completed_ &-> ($null)
+        LSHR_u16_u16_69_update_start_ &-> (LSHR_u16_u16_69_Update)
+        LSHR_u16_u16_69_update_completed_ <-& (LSHR_u16_u16_69_Update)
+        // Target expression
+        // (as target) next_b
+        // start: WAR dependencies for next_b
+        // done: WAR dependencies for next_b
+        // end:  		next_b := (b >> 1 ) $buffering 1// bits of buffering = 16. 
+        // load-store dependencies..
+      }
+      assign_stmt_37_to_assign_stmt_70__entry__ |-> (assign_stmt_37_to_assign_stmt_70)
+      assign_stmt_37_to_assign_stmt_70__exit__ <-| (assign_stmt_37_to_assign_stmt_70)
+      // if-statement  
+      //  file prog.linked.opt.aa, line 32
+      ;;[if_stmt_71_dead_link] 
+      {
+        $T [dead_transition] $dead 
+      }
+      if_stmt_71__entry__ |-> (if_stmt_71_dead_link)
+      if_stmt_71__exit__ <-| (if_stmt_71_dead_link)
+      ;;[if_stmt_71_eval_test] 
+      {
+        // test expression evaluate and trigger branch 
+        $T [branch_req] 
+      }
+      if_stmt_71__entry__ |-> (if_stmt_71_eval_test)
+      $P [R_continue_flag_72_place]
+      R_continue_flag_72_place <-| (if_stmt_71_eval_test)
+      ;;[if_stmt_71_if_link] 
+      {
+        $T [if_choice_transition] 
+      }
+      ;;[if_stmt_71_else_link] 
+      {
+        $T [else_choice_transition] 
+      }
+      R_continue_flag_72_place |-> (if_stmt_71_if_link if_stmt_71_else_link)
+      $P [loopback]
+      loopback <-| (if_stmt_71_if_link)
+      $P [assign_stmt_77__entry__] 
+      $P [assign_stmt_77__exit__] 
+      ::[assign_stmt_77] 
+      {
+        // start:  			product := sum $buffering 1// bits of buffering = 16. 
+        //  file prog.linked.opt.aa, line 35
+        $T[assign_stmt_77_sample_start_] 
+        $T[assign_stmt_77_sample_completed_] 
+        $T[assign_stmt_77_update_start_] 
+        $T[assign_stmt_77_update_completed_] 
+        // Source expression
+        // sum
+        // Target expression
+        // (as target) product
+        // product
+        // write to interface object
+        // both source and target are implicit: use interlock 
+        // Interlock 
+        ;;[assign_stmt_77_Sample] 
+        {
+          $T [req] $T [ack] // interlock-sample.
+        }
+        ;;[assign_stmt_77_Update] 
+        {
+          $T [req] $T [ack] // interlock-update.
+        }
+        assign_stmt_77_sample_start_ &-> (assign_stmt_77_Sample)
+        assign_stmt_77_sample_completed_ <-& (assign_stmt_77_Sample)
+        assign_stmt_77_sample_completed_ &-> ($null)
+        assign_stmt_77_update_start_ &-> (assign_stmt_77_Update)
+        assign_stmt_77_update_completed_ <-& (assign_stmt_77_Update)
+        // start: Forward dependencies from sum to transition assign_stmt_77_sample_start_
+        // done: Forward dependencies from sum to transition assign_stmt_77_sample_start_
+        // start: WAR dependencies for product
+        // done: WAR dependencies for product
+        // product
+        // write to interface object
+        // end:  			product := sum $buffering 1// bits of buffering = 16. 
+        // load-store dependencies..
+      }
+      assign_stmt_77__entry__ |-> (assign_stmt_77)
+      assign_stmt_77__exit__ <-| (assign_stmt_77)
+      assign_stmt_77__entry__ <-| (if_stmt_71_else_link)
+      assign_stmt_77__exit__ |-> (if_stmt_71__exit__)
+      // control-path for merge  
+      //  file prog.linked.opt.aa, line 15
+      ;;[merge_stmt_10_dead_link] 
+      {
+        $T [dead_transition] $dead 
+      }
+      merge_stmt_10__entry__ |-> (merge_stmt_10_dead_link)
+      merge_stmt_10__exit__ <-| (merge_stmt_10_dead_link)
+      //---------------------   merge statement  file prog.linked.opt.aa, line 15  --------------------------
+      ||[merge_stmt_10__entry___PhiReq] 
+      {
+        ;;[phi_stmt_11] 
+        {
+          ||[phi_stmt_11_sources] 
+          {
+            // sources for 			$phi a := 			  ($bitcast ($uint<16>) a_in ) $on   $entry 			  next_a $on   loopback 
+            // type of target is $uint<16>
+            // trivial non-constant source .... interlock-buffer introduced 
+            // ($bitcast ($uint<16>) a_in )
+            ;;[type_cast_14] 
+            {
+              // type-cast expression
+              ||[SplitProtocol] 
+              {
+                ;;[Sample] 
+                {
+                  $T [rr] $T [ra]  
+                }
+                ;;[Update] 
+                {
+                  $T [cr] $T [ca] 
+                }
+              }
+            }
+          }
+          $T [phi_stmt_11_req] 
+        }
+        ;;[phi_stmt_16] 
+        {
+          ||[phi_stmt_16_sources] 
+          {
+            // sources for 			$phi b := 			  next_b $on   loopback 			  ($bitcast ($uint<16>) b_in ) $on   $entry 
+            // type of target is $uint<16>
+            // trivial non-constant source .... interlock-buffer introduced 
+            // ($bitcast ($uint<16>) b_in )
+            ;;[type_cast_20] 
+            {
+              // type-cast expression
+              ||[SplitProtocol] 
+              {
+                ;;[Sample] 
+                {
+                  $T [rr] $T [ra]  
+                }
+                ;;[Update] 
+                {
+                  $T [cr] $T [ca] 
+                }
+              }
+            }
+          }
+          $T [phi_stmt_16_req] 
+        }
+        ;;[phi_stmt_21] 
+        {
+          ||[phi_stmt_21_sources] 
+          {
+            // sources for 			$phi sum := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_sum $on   loopback 
+            // type of target is $uint<16>
+            // constant source .... delay transition 
+            $T [type_cast_24_konst_delay_trans] $delay
+          }
+          $T [phi_stmt_21_req] 
+        }
+        ;;[phi_stmt_26] 
+        {
+          ||[phi_stmt_26_sources] 
+          {
+            // sources for 			$phi count := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_count $on   loopback 
+            // type of target is $uint<16>
+            // constant source .... delay transition 
+            $T [type_cast_29_konst_delay_trans] $delay
+          }
+          $T [phi_stmt_26_req] 
+        }
+      }
+      merge_stmt_10__entry__ |-> (merge_stmt_10__entry___PhiReq)
+      ||[loopback_PhiReq] 
+      {
+        ;;[phi_stmt_11] 
+        {
+          ||[phi_stmt_11_sources] 
+          {
+            // sources for 			$phi a := 			  ($bitcast ($uint<16>) a_in ) $on   $entry 			  next_a $on   loopback 
+            // type of target is $uint<16>
+            // trivial non-constant source .... interlock-buffer introduced 
+            || [Interlock] 
+            {
+              ;;[Sample] 
+              {
+                $T [req] $T [ack]
+              }
+              ;;[Update] 
+              {
+                $T [req] $T [ack]
+              }
+            }
+          }
+          $T [phi_stmt_11_req] 
+        }
+        ;;[phi_stmt_16] 
+        {
+          ||[phi_stmt_16_sources] 
+          {
+            // sources for 			$phi b := 			  next_b $on   loopback 			  ($bitcast ($uint<16>) b_in ) $on   $entry 
+            // type of target is $uint<16>
+            // trivial non-constant source .... interlock-buffer introduced 
+            || [Interlock] 
+            {
+              ;;[Sample] 
+              {
+                $T [req] $T [ack]
+              }
+              ;;[Update] 
+              {
+                $T [req] $T [ack]
+              }
+            }
+          }
+          $T [phi_stmt_16_req] 
+        }
+        ;;[phi_stmt_21] 
+        {
+          ||[phi_stmt_21_sources] 
+          {
+            // sources for 			$phi sum := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_sum $on   loopback 
+            // type of target is $uint<16>
+            // trivial non-constant source .... interlock-buffer introduced 
+            || [Interlock] 
+            {
+              ;;[Sample] 
+              {
+                $T [req] $T [ack]
+              }
+              ;;[Update] 
+              {
+                $T [req] $T [ack]
+              }
+            }
+          }
+          $T [phi_stmt_21_req] 
+        }
+        ;;[phi_stmt_26] 
+        {
+          ||[phi_stmt_26_sources] 
+          {
+            // sources for 			$phi count := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_count $on   loopback 
+            // type of target is $uint<16>
+            // trivial non-constant source .... interlock-buffer introduced 
+            || [Interlock] 
+            {
+              ;;[Sample] 
+              {
+                $T [req] $T [ack]
+              }
+              ;;[Update] 
+              {
+                $T [req] $T [ack]
+              }
+            }
+          }
+          $T [phi_stmt_26_req] 
+        }
+      }
+      loopback |-> (loopback_PhiReq)
+      $P [merge_stmt_10_PhiReqMerge] 
+      merge_stmt_10_PhiReqMerge <-| ( merge_stmt_10__entry___PhiReq  loopback_PhiReq )
+      ||[merge_stmt_10_PhiAck] 
+      {
+        $T [phi_stmt_11_ack] 
+        $T [phi_stmt_16_ack] 
+        $T [phi_stmt_21_ack] 
+        $T [phi_stmt_26_ack] 
+      }
+      merge_stmt_10_PhiReqMerge |-> (merge_stmt_10_PhiAck)
+      merge_stmt_10__exit__  <-| (merge_stmt_10_PhiAck)
+      //---------------------  end of merge statement  file prog.linked.opt.aa, line 15  --------------------------
+      merge_stmt_10__entry__ <-| (branch_block_stmt_9__entry__)
+      assign_stmt_37_to_assign_stmt_70__entry__ <-| (merge_stmt_10__exit__)
+      if_stmt_71__entry__ <-| (assign_stmt_37_to_assign_stmt_70__exit__)
+      if_stmt_71__exit__ |-> (branch_block_stmt_9__exit__)
+    }
+  }
+  // end control-path
+  $DP 
+  {
+    // begin data-path 
+    // constant-object-declarations for block %shift_and_add_mul%loop%
+    //  file prog.linked.opt.aa, line 15
+    // constant-object-declarations for block %shift_and_add_mul%loop
+    //  file prog.linked.opt.aa, line 13
+    // constant-object-declarations for block %shift_and_add_mul
+    //  file prog.linked.opt.aa, line 8
+    // constant-declarations for block %shift_and_add_mul%loop
+    //  file prog.linked.opt.aa, line 13
+    // constant-declarations for block %shift_and_add_mul%loop%
+    //  file prog.linked.opt.aa, line 15
+    // constant-declarations for phi:  			$phi a := 			  ($bitcast ($uint<16>) a_in ) $on   $entry 			  next_a $on   loopback 
+    // type of target is $uint<16>
+    //  file prog.linked.opt.aa, line 16
+    // constant-declarations for phi:  			$phi b := 			  next_b $on   loopback 			  ($bitcast ($uint<16>) b_in ) $on   $entry 
+    // type of target is $uint<16>
+    //  file prog.linked.opt.aa, line 18
+    // constant-declarations for phi:  			$phi sum := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_sum $on   loopback 
+    // type of target is $uint<16>
+    //  file prog.linked.opt.aa, line 20
+    // ($bitcast ($uint<16>) 0  )
+    $constant $W[type_cast_24_wire_constant] : $int<16> := _b0000000000000000// 0
+    // constant-declarations for phi:  			$phi count := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_count $on   loopback 
+    // type of target is $uint<16>
+    //  file prog.linked.opt.aa, line 22
+    // ($bitcast ($uint<16>) 0  )
+    $constant $W[type_cast_29_wire_constant] : $int<16> := _b0000000000000000// 0
+    // 0 
+    $constant $W[konst_34_wire_constant] : $int<16> := _b0000000000000000// 0
+    // 1 
+    $constant $W[konst_40_wire_constant] : $int<16> := _b0000000000000001// 1
+    // 0 
+    $constant $W[konst_42_wire_constant] : $int<16> := _b0000000000000000// 0
+    // 1 
+    $constant $W[konst_54_wire_constant] : $int<16> := _b0000000000000001// 1
+    // ( $mux add_shifted shifted_sum  sum ) 
+    // 1 
+    $constant $W[konst_68_wire_constant] : $int<16> := _b0000000000000001// 1
+    // if-statement  
+    //  file prog.linked.opt.aa, line 32
+    // block %shift_and_add_mul%loop
+    //  file prog.linked.opt.aa, line 13
+    // merge-statement  
+    //  file prog.linked.opt.aa, line 15
+    // 			$phi a := 			  ($bitcast ($uint<16>) a_in ) $on   $entry 			  next_a $on   loopback 
+    // type of target is $uint<16>
+    //  file prog.linked.opt.aa, line 16
+    // ($bitcast ($uint<16>) a_in )
+    $intermediate $W[type_cast_14_wire] : $int<16>
+    $W[next_a_65_15_buffered] : $int<16>
+    // a
+    $W[a_11] : $int<16>
+    // 			$phi b := 			  next_b $on   loopback 			  ($bitcast ($uint<16>) b_in ) $on   $entry 
+    // type of target is $uint<16>
+    //  file prog.linked.opt.aa, line 18
+    $W[next_b_70_18_buffered] : $int<16>
+    // ($bitcast ($uint<16>) b_in )
+    $intermediate $W[type_cast_20_wire] : $int<16>
+    // b
+    $W[b_16] : $int<16>
+    // 			$phi sum := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_sum $on   loopback 
+    // type of target is $uint<16>
+    //  file prog.linked.opt.aa, line 20
+    $W[next_sum_62_25_buffered] : $int<16>
+    // sum
+    $W[sum_21] : $int<16>
+    // 			$phi count := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_count $on   loopback 
+    // type of target is $uint<16>
+    //  file prog.linked.opt.aa, line 22
+    $W[next_count_56_30_buffered] : $int<16>
+    // count
+    $W[count_26] : $int<16>
+    // 		$volatile continue_flag := (b != 0 ) $buffering 1
+    //  file prog.linked.opt.aa, line 25
+    // continue_flag
+    $W[continue_flag_37] : $int<1>
+    // 		$volatile add_shifted := ((b & 1 ) != 0 ) $buffering 1
+    //  file prog.linked.opt.aa, line 26
+    // (b & 1 )
+    $intermediate $W[AND_u16_u16_41_wire] : $int<16>
+    // add_shifted
+    $W[add_shifted_44] : $int<1>
+    // 		$volatile shifted_sum := (sum + (a << count)) $buffering 1
+    //  file prog.linked.opt.aa, line 27
+    // (a << count)
+    $intermediate $W[SHL_u16_u16_49_wire] : $int<16>
+    // shifted_sum
+    $W[shifted_sum_51] : $int<16>
+    // 		next_count := (count + 1 ) $buffering 1// bits of buffering = 16. 
+    //  file prog.linked.opt.aa, line 28
+    // next_count
+    $W[next_count_56] : $int<16>
+    // 		next_sum := ( $mux add_shifted shifted_sum  sum )  $buffering 1// bits of buffering = 16. 
+    //  file prog.linked.opt.aa, line 29
+    // next_sum
+    $W[next_sum_62] : $int<16>
+    // 		next_a := a $buffering 1// bits of buffering = 16. 
+    //  file prog.linked.opt.aa, line 30
+    // next_a
+    $W[next_a_65] : $int<16>
+    // 		next_b := (b >> 1 ) $buffering 1// bits of buffering = 16. 
+    //  file prog.linked.opt.aa, line 31
+    // next_b
+    $W[next_b_70] : $int<16>
+    // if statement  
+    //  file prog.linked.opt.aa, line 32
+    // 			product := sum $buffering 1// bits of buffering = 16. 
+    //  file prog.linked.opt.aa, line 35
+    // product
+    // datapath-instances for block %shift_and_add_mul%loop
+    //  file prog.linked.opt.aa, line 13
+    // data-path instances for merge  
+    //  file prog.linked.opt.aa, line 15
+    // 			$phi a := 			  ($bitcast ($uint<16>) a_in ) $on   $entry 			  next_a $on   loopback 
+    // type of target is $uint<16>
+    //  file prog.linked.opt.aa, line 16
+    // ($bitcast ($uint<16>) a_in )
+    # := [type_cast_14_inst] (a_in) (type_cast_14_wire)    
+    $buffering  $out type_cast_14_inst type_cast_14_wire 1
+    $delay type_cast_14_inst 1
+    # := [next_a_65_15_buf] (next_a_65) (next_a_65_15_buffered)    
+    $phi [phi_stmt_11] (type_cast_14_wire next_a_65_15_buffered) ( a_11 ) 
+    // 			$phi b := 			  next_b $on   loopback 			  ($bitcast ($uint<16>) b_in ) $on   $entry 
+    // type of target is $uint<16>
+    //  file prog.linked.opt.aa, line 18
+    # := [next_b_70_18_buf] (next_b_70) (next_b_70_18_buffered)    
+    // ($bitcast ($uint<16>) b_in )
+    # := [type_cast_20_inst] (b_in) (type_cast_20_wire)    
+    $buffering  $out type_cast_20_inst type_cast_20_wire 1
+    $delay type_cast_20_inst 1
+    $phi [phi_stmt_16] (next_b_70_18_buffered type_cast_20_wire) ( b_16 ) 
+    // 			$phi sum := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_sum $on   loopback 
+    // type of target is $uint<16>
+    //  file prog.linked.opt.aa, line 20
+    # := [next_sum_62_25_buf] (next_sum_62) (next_sum_62_25_buffered)    
+    $phi [phi_stmt_21] (type_cast_24_wire_constant next_sum_62_25_buffered) ( sum_21 ) 
+    // 			$phi count := 			  ($bitcast ($uint<16>) 0  ) $on   $entry 			  next_count $on   loopback 
+    // type of target is $uint<16>
+    //  file prog.linked.opt.aa, line 22
+    # := [next_count_56_30_buf] (next_count_56) (next_count_56_30_buffered)    
+    $phi [phi_stmt_26] (type_cast_29_wire_constant next_count_56_30_buffered) ( count_26 ) 
+    // 		$volatile continue_flag := (b != 0 ) $buffering 1
+    //  file prog.linked.opt.aa, line 25
+    // (b != 0 )
+    !=[NEQ_u16_u1_35_inst] (b_16 konst_34_wire_constant) (continue_flag_37)   $flowthrough 
+    $delay NEQ_u16_u1_35_inst 0
+    // 		$volatile add_shifted := ((b & 1 ) != 0 ) $buffering 1
+    //  file prog.linked.opt.aa, line 26
+    // (b & 1 )
+    &[AND_u16_u16_41_inst] (b_16 konst_40_wire_constant) (AND_u16_u16_41_wire)   $flowthrough 
+    $delay AND_u16_u16_41_inst 0
+    // ((b & 1 ) != 0 )
+    !=[NEQ_u16_u1_43_inst] (AND_u16_u16_41_wire konst_42_wire_constant) (add_shifted_44)   $flowthrough 
+    $delay NEQ_u16_u1_43_inst 0
+    // 		$volatile shifted_sum := (sum + (a << count)) $buffering 1
+    //  file prog.linked.opt.aa, line 27
+    // (a << count)
+    <<[SHL_u16_u16_49_inst] (a_11 count_26) (SHL_u16_u16_49_wire)   $flowthrough 
+    $delay SHL_u16_u16_49_inst 0
+    // (sum + (a << count))
+    +[ADD_u16_u16_50_inst] (sum_21 SHL_u16_u16_49_wire) (shifted_sum_51)   $flowthrough 
+    $delay ADD_u16_u16_50_inst 0
+    // 		next_count := (count + 1 ) $buffering 1// bits of buffering = 16. 
+    //  file prog.linked.opt.aa, line 28
+    // (count + 1 )
+    +[ADD_u16_u16_55_inst] (count_26 konst_54_wire_constant) (next_count_56)   
+    $buffering  $out ADD_u16_u16_55_inst next_count_56 1
+    $delay ADD_u16_u16_55_inst 1
+    // 		next_sum := ( $mux add_shifted shifted_sum  sum )  $buffering 1// bits of buffering = 16. 
+    //  file prog.linked.opt.aa, line 29
+    // ( $mux add_shifted shifted_sum  sum ) 
+    ? [MUX_61_inst] (add_shifted_44 shifted_sum_51 sum_21) (next_sum_62) 
+    $buffering  $out MUX_61_inst next_sum_62 1
+    // 		next_a := a $buffering 1// bits of buffering = 16. 
+    //  file prog.linked.opt.aa, line 30
+    # := [W_next_a_63_inst] (a_11) (next_a_65)    
+    // 		next_b := (b >> 1 ) $buffering 1// bits of buffering = 16. 
+    //  file prog.linked.opt.aa, line 31
+    // (b >> 1 )
+    >>[LSHR_u16_u16_69_inst] (b_16 konst_68_wire_constant) (next_b_70)   
+    $buffering  $out LSHR_u16_u16_69_inst next_b_70 1
+    $delay LSHR_u16_u16_69_inst 1
+    // datapath-instances for if  
+    //  file prog.linked.opt.aa, line 32
+    ==0? [if_stmt_71_branch] (continue_flag_37)
+    // 			product := sum $buffering 1// bits of buffering = 16. 
+    //  file prog.linked.opt.aa, line 35
+    # := [W_product_75_inst] (sum_21) (product)    
+  }
+  // end data-path
+  // CP-DP links for merge  
+  //  file prog.linked.opt.aa, line 15
+  // ($bitcast ($uint<16>) a_in )
+  type_cast_14_inst <=> (branch_block_stmt_9/merge_stmt_10__entry___PhiReq/phi_stmt_11/phi_stmt_11_sources/type_cast_14/SplitProtocol/Sample/rr branch_block_stmt_9/merge_stmt_10__entry___PhiReq/phi_stmt_11/phi_stmt_11_sources/type_cast_14/SplitProtocol/Update/cr) (branch_block_stmt_9/merge_stmt_10__entry___PhiReq/phi_stmt_11/phi_stmt_11_sources/type_cast_14/SplitProtocol/Sample/ra branch_block_stmt_9/merge_stmt_10__entry___PhiReq/phi_stmt_11/phi_stmt_11_sources/type_cast_14/SplitProtocol/Update/ca)
+  next_a_65_15_buf <=> (branch_block_stmt_9/loopback_PhiReq/phi_stmt_11/phi_stmt_11_sources/Interlock/Sample/req branch_block_stmt_9/loopback_PhiReq/phi_stmt_11/phi_stmt_11_sources/Interlock/Update/req) (branch_block_stmt_9/loopback_PhiReq/phi_stmt_11/phi_stmt_11_sources/Interlock/Sample/ack branch_block_stmt_9/loopback_PhiReq/phi_stmt_11/phi_stmt_11_sources/Interlock/Update/ack)
+  phi_stmt_11 <=> (branch_block_stmt_9/merge_stmt_10__entry___PhiReq/phi_stmt_11/phi_stmt_11_req branch_block_stmt_9/loopback_PhiReq/phi_stmt_11/phi_stmt_11_req) (branch_block_stmt_9/merge_stmt_10_PhiAck/phi_stmt_11_ack)
+  next_b_70_18_buf <=> (branch_block_stmt_9/loopback_PhiReq/phi_stmt_16/phi_stmt_16_sources/Interlock/Sample/req branch_block_stmt_9/loopback_PhiReq/phi_stmt_16/phi_stmt_16_sources/Interlock/Update/req) (branch_block_stmt_9/loopback_PhiReq/phi_stmt_16/phi_stmt_16_sources/Interlock/Sample/ack branch_block_stmt_9/loopback_PhiReq/phi_stmt_16/phi_stmt_16_sources/Interlock/Update/ack)
+  // ($bitcast ($uint<16>) b_in )
+  type_cast_20_inst <=> (branch_block_stmt_9/merge_stmt_10__entry___PhiReq/phi_stmt_16/phi_stmt_16_sources/type_cast_20/SplitProtocol/Sample/rr branch_block_stmt_9/merge_stmt_10__entry___PhiReq/phi_stmt_16/phi_stmt_16_sources/type_cast_20/SplitProtocol/Update/cr) (branch_block_stmt_9/merge_stmt_10__entry___PhiReq/phi_stmt_16/phi_stmt_16_sources/type_cast_20/SplitProtocol/Sample/ra branch_block_stmt_9/merge_stmt_10__entry___PhiReq/phi_stmt_16/phi_stmt_16_sources/type_cast_20/SplitProtocol/Update/ca)
+  phi_stmt_16 <=> (branch_block_stmt_9/loopback_PhiReq/phi_stmt_16/phi_stmt_16_req branch_block_stmt_9/merge_stmt_10__entry___PhiReq/phi_stmt_16/phi_stmt_16_req) (branch_block_stmt_9/merge_stmt_10_PhiAck/phi_stmt_16_ack)
+  next_sum_62_25_buf <=> (branch_block_stmt_9/loopback_PhiReq/phi_stmt_21/phi_stmt_21_sources/Interlock/Sample/req branch_block_stmt_9/loopback_PhiReq/phi_stmt_21/phi_stmt_21_sources/Interlock/Update/req) (branch_block_stmt_9/loopback_PhiReq/phi_stmt_21/phi_stmt_21_sources/Interlock/Sample/ack branch_block_stmt_9/loopback_PhiReq/phi_stmt_21/phi_stmt_21_sources/Interlock/Update/ack)
+  phi_stmt_21 <=> (branch_block_stmt_9/merge_stmt_10__entry___PhiReq/phi_stmt_21/phi_stmt_21_req branch_block_stmt_9/loopback_PhiReq/phi_stmt_21/phi_stmt_21_req) (branch_block_stmt_9/merge_stmt_10_PhiAck/phi_stmt_21_ack)
+  next_count_56_30_buf <=> (branch_block_stmt_9/loopback_PhiReq/phi_stmt_26/phi_stmt_26_sources/Interlock/Sample/req branch_block_stmt_9/loopback_PhiReq/phi_stmt_26/phi_stmt_26_sources/Interlock/Update/req) (branch_block_stmt_9/loopback_PhiReq/phi_stmt_26/phi_stmt_26_sources/Interlock/Sample/ack branch_block_stmt_9/loopback_PhiReq/phi_stmt_26/phi_stmt_26_sources/Interlock/Update/ack)
+  phi_stmt_26 <=> (branch_block_stmt_9/merge_stmt_10__entry___PhiReq/phi_stmt_26/phi_stmt_26_req branch_block_stmt_9/loopback_PhiReq/phi_stmt_26/phi_stmt_26_req) (branch_block_stmt_9/merge_stmt_10_PhiAck/phi_stmt_26_ack)
+  // 		$volatile continue_flag := (b != 0 ) $buffering 1
+  //  file prog.linked.opt.aa, line 25
+  // (b != 0 )
+  // b
+  // 		$volatile add_shifted := ((b & 1 ) != 0 ) $buffering 1
+  //  file prog.linked.opt.aa, line 26
+  // ((b & 1 ) != 0 )
+  // (b & 1 )
+  // b
+  // 		$volatile shifted_sum := (sum + (a << count)) $buffering 1
+  //  file prog.linked.opt.aa, line 27
+  // (sum + (a << count))
+  // sum
+  // (a << count)
+  // a
+  // count
+  // 		next_count := (count + 1 ) $buffering 1// bits of buffering = 16. 
+  //  file prog.linked.opt.aa, line 28
+  // (count + 1 )
+  // count
+  ADD_u16_u16_55_inst <=> (branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/ADD_u16_u16_55_Sample/rr branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/ADD_u16_u16_55_Update/cr) (branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/ADD_u16_u16_55_Sample/ra branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/ADD_u16_u16_55_Update/ca)
+  // 		next_sum := ( $mux add_shifted shifted_sum  sum )  $buffering 1// bits of buffering = 16. 
+  //  file prog.linked.opt.aa, line 29
+  // add_shifted
+  // shifted_sum
+  // sum
+  // ( $mux add_shifted shifted_sum  sum ) 
+  MUX_61_inst <=> (branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/MUX_61_start/req branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/MUX_61_complete/req) (branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/MUX_61_start/ack branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/MUX_61_complete/ack)
+  // 		next_a := a $buffering 1// bits of buffering = 16. 
+  //  file prog.linked.opt.aa, line 30
+  // a
+  W_next_a_63_inst <=> (branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/assign_stmt_65_Sample/req branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/assign_stmt_65_Update/req) (branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/assign_stmt_65_Sample/ack branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/assign_stmt_65_Update/ack)
+  // 		next_b := (b >> 1 ) $buffering 1// bits of buffering = 16. 
+  //  file prog.linked.opt.aa, line 31
+  // (b >> 1 )
+  // b
+  LSHR_u16_u16_69_inst <=> (branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/LSHR_u16_u16_69_Sample/rr branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/LSHR_u16_u16_69_Update/cr) (branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/LSHR_u16_u16_69_Sample/ra branch_block_stmt_9/assign_stmt_37_to_assign_stmt_70/LSHR_u16_u16_69_Update/ca)
+  // CP-DP links for if  
+  //  file prog.linked.opt.aa, line 32
+  if_stmt_71_branch <=> (branch_block_stmt_9/if_stmt_71_eval_test/branch_req) (branch_block_stmt_9/if_stmt_71_else_link/else_choice_transition branch_block_stmt_9/if_stmt_71_if_link/if_choice_transition)
+  // 			product := sum $buffering 1// bits of buffering = 16. 
+  //  file prog.linked.opt.aa, line 35
+  // sum
+  W_product_75_inst <=> (branch_block_stmt_9/assign_stmt_77/assign_stmt_77_Sample/req branch_block_stmt_9/assign_stmt_77/assign_stmt_77_Update/req) (branch_block_stmt_9/assign_stmt_77/assign_stmt_77_Sample/ack branch_block_stmt_9/assign_stmt_77/assign_stmt_77_Update/ack)
+}
