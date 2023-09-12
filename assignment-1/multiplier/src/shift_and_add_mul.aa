@@ -3,7 +3,7 @@ $module [shift_and_add_mul] $in (a b: $uint<8>) $out (product: $uint<16>) $is
 	$branchblock[loop] {
 		$merge $entry loopback
 			$phi curr_a := ($bitcast ($uint<16>) a) $on $entry next_a $on loopback
-			$phi curr_b := ($bitcast ($uint<16>) b) $on $entry next_b $on loopback
+			$phi curr_b := b $on $entry next_b $on loopback
 			$phi sum := ($bitcast ($uint<16>) 0) $on $entry next_sum $on loopback
 			$phi count := ($bitcast ($uint<16>) 0) $on $entry next_count $on loopback
 		$endmerge
