@@ -1,4 +1,4 @@
-#ee789-iitb
+# Algorithmic Design of Digital Systems
 
 
 ### Important Commands 

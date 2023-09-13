@@ -2,7 +2,6 @@ $module [shift_and_subtract_div] $in (a b: $uint<8>) $out (quotient: $uint<8>) $
 {
 	$branchblock[loop] {
 		$merge $entry loopback
-			$phi curr_a := a $on $entry next_a $on loopback
 			$phi curr_b := b $on $entry next_b $on loopback
 			$phi curr_quotient := ($bitcast ($uint<8>) 0) $on $entry next_quotient $on loopback
 			$phi curr_remainder := ($bitcast ($uint<8>) 0) $on $entry next_remainder $on loopback
@@ -10,7 +9,7 @@ $module [shift_and_subtract_div] $in (a b: $uint<8>) $out (quotient: $uint<8>) $
 		$endmerge
 		
 		$volatile continue_flag := (count < 8)
-		$volatile next_bit_from_dividend := ((curr_a >> (7 - count)) & 1)
+		$volatile next_bit_from_dividend := ((a >> (7 - count)) & 1)
 		$volatile new_rem := ((curr_remainder << 1) | next_bit_from_dividend)
 		$volatile sub_shifted := (new_rem >= b) 
 		$volatile new_quot := (curr_quotient | (1 << (7 - count)))
@@ -18,7 +17,6 @@ $module [shift_and_subtract_div] $in (a b: $uint<8>) $out (quotient: $uint<8>) $
 		next_count := (count + 1)
 		next_remainder := ($mux sub_shifted (new_rem - b) new_rem) 
 		next_quotient := ($mux sub_shifted new_quot curr_quotient)
-		next_a := curr_a
 		next_b := (curr_b >> 1)
 
 
