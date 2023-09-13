@@ -1,0 +1,1 @@
+tar -cvzf 20d170033_Assignment1.tar.gz 20d170033_Assignment1
