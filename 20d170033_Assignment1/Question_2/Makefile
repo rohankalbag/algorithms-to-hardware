@@ -22,8 +22,8 @@ HW: aalink aa2vc  vc2vhdl  vhdltb ghdlsim
 AA2VHDL: aa2vc vc2vhdl vhdlsim
 
 # Aa to vC
-aalink: $(SRC)/shift_and_subtract_div.aa 
-	AaLinkExtMem $(SRC)/shift_and_subtract_div.aa | vcFormat > prog.linked.aa
+aalink: $(SRC)/prog.aa 
+	AaLinkExtMem $(SRC)/prog.aa | vcFormat > prog.linked.aa
 	AaOpt -B prog.linked.aa | vcFormat > prog.linked.opt.aa
 
 aa2vc: prog.linked.opt.aa
