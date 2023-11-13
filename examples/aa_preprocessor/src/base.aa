@@ -1,0 +1,10 @@
+$branchblock[loop_##ID ] 
+{
+	$merge $entry loopback_##ID $endmerge
+
+	 X := in_data_##ID
+	 out_data_##ID := ($call mulFp (X X))
+
+	$place [loopback_##ID ]
+}
+
