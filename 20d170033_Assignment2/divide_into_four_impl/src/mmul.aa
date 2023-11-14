@@ -2,14 +2,6 @@ $parameter ORDER 16
 $parameter ORDERBY2 {ORDER / 2}
 $constant offset: $uint<8> := 8
 
-//
-// observation signals to keep track of progress.
-//
-// $pipe mmul_I : $uint<8> $signal
-// $pipe mmul_J : $uint<8> $signal
-// $pipe mmul_START: $uint<8> $signal
-// $pipe mmul_END: $uint<8> $signal
-
 $storage A B C: $array[ORDER][ORDER] $of $uint<32>
 
 $module [storeA] $in (I J: $uint<8> wval: $uint<32>) $out () $is

@@ -1,12 +1,5 @@
 $parameter ORDER 16
 
-//
-// observation signals to keep track of progress.
-//
-// $pipe mmul_I : $uint<8> $signal
-// $pipe mmul_J : $uint<8> $signal
-// $pipe mmul_START: $uint<8> $signal
-// $pipe mmul_END: $uint<8> $signal
 
 $storage A B C: $array[ORDER][ORDER] $of $uint<32>
 
@@ -45,9 +38,7 @@ $module [dot_product] $in (I J: $uint<8>) $out (result: $uint<32>) $is
 
 $module [mmul] $in () $out () $is
 {
-	//mmul_START := 1
 	$branchblock[loop] {
-	    //u := mmul_START v := mmul_END // for logging 
 	    $merge $entry I_loopback 
 			$phi I := $zero<8> $on $entry nI $on I_loopback
 		$endmerge
@@ -60,16 +51,11 @@ $module [mmul] $in () $out () $is
 			$volatile nJ := (J + 1)
 			$volatile continue_flag := (J < (ORDER - 1))
 	
-			// dot-product!
 			C[I][J] := ($call dot_product (I J))
 	
-			//mmul_I := I
-			//mmul_J := J
-			
 		$while continue_flag
 
 	    $if (I < (ORDER-1)) $then $place [I_loopback] $endif
 	}
-	//mmul_END := 1
 }
 
