@@ -1,0 +1,36 @@
+	Examining intermediate results
+        -------------------------------
+
+1. From the VHDL simulation log, one can examine
+   internal system activity during the simulation.
+
+   In your design, introduce signals to record 
+   events.  In the current sample program, this
+   is done via the declarations
+
+   $pipe mmul_I : $uint<8> $signal
+   $pipe mmul_J : $uint<8> $signal
+   $pipe mmul_START: $uint<8> $signal
+   $pipe mmul_END: $uint<8> $signal
+
+2.  Write to these signals at important points
+    in your program.   For example, in the
+    current sample program, 
+
+		mmul_I := I
+		mmul_J := J
+
+    are assigned to values which indicate the
+    loop iteration indices in the mmul module.
+
+    
+3.  Writes to the mmul_* signals will be logged
+    in the VHDL simulation.  
+
+    ./ahir_system_test_bench 2>&1 | grep mmul_* | grep WPIPE
+
+    will show you the writes to these signals and
+    the time instants at which these writes happened.
+
+
+4. For more detail, save the waveform etc..
