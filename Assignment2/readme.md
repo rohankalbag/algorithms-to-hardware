@@ -10,7 +10,7 @@
 - To run any project do the following (make sure that the Docker container is running)
 
 ```bash
-cd <project_name>
+cd project_folder
 make
 ```
 - Create two terminals and run the following commands in each of them
