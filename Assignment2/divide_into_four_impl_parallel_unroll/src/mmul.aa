@@ -1,0 +1,200 @@
+$parameter ORDER 16
+$parameter ORDER_BY_2 {ORDER / 2}
+$parameter ORDER_BY_4 {ORDER / 4}
+
+$constant offset: $uint<8> := 8
+
+$storage A B C: $array[ORDER][ORDER] $of $uint<32>
+
+$module [storeA] $in (I J: $uint<8> wval: $uint<32>) $out () $is
+{
+	A[I][J] := wval
+}
+$module [storeB] $in (I J: $uint<8> wval: $uint<32>) $out () $is
+{
+	B[I][J] := wval
+}
+
+$module [loadC] $in (I J : $uint<8>) $out (Y : $uint<32>) $is
+{
+	Y := C[I][J]
+}
+
+
+$module [dot_product] $in (I J OF1 OF2: $uint<8>) $out (result: $uint<32>) $is
+{
+	$parallelblock [computation] 
+	{
+		$branchblock[loop0] {
+			$dopipeline $depth 31 $fullrate
+				$merge $entry $loopback
+					$phi K := $zero<8> $on $entry nK $on $loopback
+					$phi SUM0 := ($bitcast ($uint<32>) 0)  $on $entry nSUM0 $on $loopback
+					$phi SUM1 := ($bitcast ($uint<32>) 0)  $on $entry nSUM1 $on $loopback
+					$phi SUM2 := ($bitcast ($uint<32>) 0)  $on $entry nSUM2 $on $loopback
+					$phi SUM3 := ($bitcast ($uint<32>) 0)  $on $entry nSUM3 $on $loopback
+				$endmerge
+
+				$volatile continue_flag := (K < (ORDER_BY_4-4))
+
+				$volatile nK := (K + 4)
+				$volatile K1 := (K + 1)
+				$volatile K2 := (K + 2)
+				$volatile K3 := (K + 3)
+				
+				$volatile K0X := (K + OF1)
+				$volatile K1X := (K1 + OF1)
+				$volatile K2X := (K2 + OF1)
+				$volatile K3X := (K3 + OF1)
+				$volatile K0Y := (K + OF2)
+				$volatile K1Y := (K1 + OF2)
+				$volatile K2Y := (K2 + OF2)
+				$volatile K3Y := (K3 + OF2)
+
+				nSUM0 := (SUM0 + (A[I][K0X] * B[K0Y][J]))
+				nSUM1 := (SUM1 + (A[I][K1X] * B[K1Y][J]))
+				nSUM2 := (SUM2 + (A[I][K2X] * B[K2Y][J]))
+				nSUM3 := (SUM3 + (A[I][K3X] * B[K3Y][J]))
+			$while continue_flag
+		} (nSUM0 => R0 nSUM1 => R1 nSUM2 => R2 nSUM3 => R3)
+
+		$branchblock[loop1] {
+			$dopipeline $depth 31 $fullrate
+				$merge $entry $loopback
+					$phi K := ($bitcast ($uint<8>) ORDER_BY_4) $on $entry nK $on $loopback
+					$phi SUM0 := ($bitcast ($uint<32>) 0)  $on $entry nSUM0 $on $loopback
+					$phi SUM1 := ($bitcast ($uint<32>) 0)  $on $entry nSUM1 $on $loopback
+					$phi SUM2 := ($bitcast ($uint<32>) 0)  $on $entry nSUM2 $on $loopback
+					$phi SUM3 := ($bitcast ($uint<32>) 0)  $on $entry nSUM3 $on $loopback
+				$endmerge
+
+				$volatile continue_flag := (K < (ORDER_BY_2-4))
+
+				$volatile nK := (K + 4)
+				$volatile K1 := (K + 1)
+				$volatile K2 := (K + 2)
+				$volatile K3 := (K + 3)
+				
+				$volatile K0X := (K + OF1)
+				$volatile K1X := (K1 + OF1)
+				$volatile K2X := (K2 + OF1)
+				$volatile K3X := (K3 + OF1)
+				$volatile K0Y := (K + OF2)
+				$volatile K1Y := (K1 + OF2)
+				$volatile K2Y := (K2 + OF2)
+				$volatile K3Y := (K3 + OF2)
+
+				nSUM0 := (SUM0 + (A[I][K0X] * B[K0Y][J]))
+				nSUM1 := (SUM1 + (A[I][K1X] * B[K1Y][J]))
+				nSUM2 := (SUM2 + (A[I][K2X] * B[K2Y][J]))
+				nSUM3 := (SUM3 + (A[I][K3X] * B[K3Y][J]))
+			$while continue_flag
+		} (nSUM0 => R4 nSUM1 => R5 nSUM2 => R6 nSUM3 => R7)
+	}(R0 => X0 R1 => X1 R2 => X2 R3 => X3 R4 => X4 R5 => X5 R6 => X6 R7 => X7)
+
+	$volatile result := (((X0 + X1) + (X2 + X3)) + ((X4 + X5) + (X6 + X7)))
+}
+
+$module [mmul] $in () $out () $is
+{
+
+	$parallelblock [computation] 
+	{
+		$branchblock[meng] {
+			$merge $entry I_loopback 
+				$phi I := $zero<8> $on $entry nI $on I_loopback
+			$endmerge
+
+			$volatile nI := (I + 1)
+
+			$dopipeline $depth 31 $fullrate 
+				$merge $entry $loopback 
+					$phi J := $zero<8> $on $entry nJ $on $loopback
+				$endmerge
+				$volatile nJ := (J + 1)
+				$volatile continue_flag := (J < (ORDER_BY_2 - 1))
+		
+				ME := ($call dot_product (I J $zero<8> $zero<8>))
+				NG := ($call dot_product (I J offset offset))
+				C[I][J] := (ME + NG)
+				
+			$while continue_flag
+
+			$if (I < (ORDER_BY_2 - 1)) $then $place [I_loopback] $endif
+		}
+
+		$branchblock[mfnh] {
+			$merge $entry I_loopback 
+				$phi I := $zero<8> $on $entry nI $on I_loopback
+			$endmerge
+
+			$volatile nI := (I + 1)
+
+			$dopipeline $depth 31 $fullrate
+				$merge $entry $loopback 
+					$phi J := $zero<8> $on $entry nJ $on $loopback
+				$endmerge
+				$volatile nJ := (J + 1)
+				$volatile continue_flag := (J < (ORDER_BY_2 - 1))
+				$volatile offsetJ := (J + offset)
+		
+				MF := ($call dot_product (I offsetJ $zero<8> $zero<8>))
+				NH := ($call dot_product (I offsetJ offset offset))
+				C[I][offsetJ] := (MF + NH)
+				
+			$while continue_flag
+
+			$if (I < (ORDER_BY_2 - 1)) $then $place [I_loopback] $endif
+		}
+
+		$branchblock[oedg] {
+			$merge $entry I_loopback 
+				$phi I := $zero<8> $on $entry nI $on I_loopback
+			$endmerge
+
+			$volatile nI := (I + 1)
+
+			$dopipeline $depth 31 $fullrate
+				$merge $entry $loopback 
+					$phi J := $zero<8> $on $entry nJ $on $loopback
+				$endmerge
+				$volatile nJ := (J + 1)
+				$volatile continue_flag := (J < (ORDER_BY_2 - 1))
+				$volatile offsetI := (I + offset)
+		
+				OE := ($call dot_product (offsetI J $zero<8> $zero<8>))
+				DG := ($call dot_product (offsetI J offset offset))
+				C[offsetI][J] := (OE + DG)
+				
+			$while continue_flag
+
+			$if (I < (ORDER_BY_2 - 1)) $then $place [I_loopback] $endif
+		}
+
+		$branchblock[ofdh] {
+			$merge $entry I_loopback 
+				$phi I := $zero<8> $on $entry nI $on I_loopback
+			$endmerge
+
+			$volatile nI := (I + 1)
+
+			$dopipeline $depth 31 $fullrate
+				$merge $entry $loopback 
+					$phi J := $zero<8> $on $entry nJ $on $loopback
+				$endmerge
+				$volatile nJ := (J + 1)
+				$volatile continue_flag := (J < (ORDER_BY_2 - 1))
+				$volatile offsetI := (I + offset)
+				$volatile offsetJ := (J + offset)
+		
+				OF := ($call dot_product (offsetI offsetJ $zero<8> $zero<8>))
+				DH := ($call dot_product (offsetI offsetJ offset offset))
+				C[offsetI][offsetJ] := (OF + DH)
+				
+			$while continue_flag
+
+			$if (I < (ORDER_BY_2 - 1)) $then $place [I_loopback] $endif
+		}
+	}
+}
+
