@@ -1,1 +1,0 @@
-507 - 482 = 25 clock cycles.

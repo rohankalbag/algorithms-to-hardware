@@ -1,2 +1,0 @@
-$pipe in_data_##ID : $float<8,23> 
-$pipe out_data_##ID : $float<8,23> 

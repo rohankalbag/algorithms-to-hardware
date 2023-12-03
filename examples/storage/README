@@ -1,9 +1,0 @@
-A small example to illustrate
-
-	1. initialization of storage variables with array type.
-	2. a computation on storage variables.
-
-Things to note:
-	- how merge/place statements are used to 
-		construct loops.
-
